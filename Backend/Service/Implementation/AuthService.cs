@@ -12,8 +12,8 @@ namespace Service.Implementation
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> ?_userManager;
-        private readonly RoleManager<IdentityRole> ?_roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration ?_configuration;
 
         public AuthService(UserManager<IdentityUser> userManager,
