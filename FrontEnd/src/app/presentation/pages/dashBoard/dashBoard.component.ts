@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 
 @Component({
@@ -9,17 +11,15 @@ import { AuthenticationService } from 'src/app/domain/services/authentication.se
 export class DashBoardComponent implements OnInit {
 
   constructor(
-    // private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
-  // onLogout() {
-
-  //   this.authenticationService.logout() ;
-  //   {
-  //     window.location.reload();
-  //   }
-  // }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/']);
+  }
 }

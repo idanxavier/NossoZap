@@ -9,6 +9,7 @@ import { HomeCardComponent } from './presentation/pages/homePage/homeCard/homeCa
 import { HomePageComponent } from './presentation/pages/homePage/homePage.component';
 import { LoginComponent } from './presentation/pages/homePage/login/login.component';
 import { RegisterComponent } from './presentation/pages/homePage/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RegisterComponent } from './presentation/pages/homePage/register/regist
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

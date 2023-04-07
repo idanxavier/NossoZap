@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    // private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService,
   )
   {
     this.formRegister = this.formbuilder.group({
@@ -33,15 +33,15 @@ export class RegisterComponent implements OnInit {
 
   onSubmit()
   {
-    // this.authenticationService.register(this.formRegister.value)
-    // .subscribe({
-    //   next: () => {
-    //   const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.authenticationService.register(this.formRegister.value)
+    .subscribe({
+      next: () => {
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
       this.router.navigate(['login']);
-    // },
-    // error: (error: any) => {
-    //   this.error = error.error;}
-    // });
+    },
+    error: (error: any) => {
+      this.error = error.error;}
+    });
   }
 
   onCancel() {

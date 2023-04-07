@@ -42,10 +42,10 @@ export class AuthenticationService {
   login(user: LoginDTO) {
     return this.authenticationRepository.login(user)
     .pipe(map(data => {
-      localStorage.setItem('accessToken', JSON.stringify(data.access_token));
-      this.accessTokenSubject.next(data.access_token);
-      this.currentUserSubject.next(data.me);
-      localStorage.setItem('currentUser', JSON.stringify(data.me));
+      localStorage.setItem('accessToken', JSON.stringify(data.token));
+      this.accessTokenSubject.next(data.token);
+      this.currentUserSubject.next(data.user);
+      localStorage.setItem('currentUser', JSON.stringify(data.user));
       return data;
     }))
   }
@@ -55,7 +55,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.authenticationRepository.logout();
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('accessToken');
     this.currentUserSubject.next(null!);
   }
 

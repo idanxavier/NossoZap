@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
   )
@@ -28,18 +28,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.formLogin.invalid){
-    //   return;
-    // }
+    if (this.formLogin.invalid){
+      return;
+    }
 
-  // this.authenticationService.login(this.formLogin.value)
-  // .subscribe({
-  //       next: () => {
+  this.authenticationService.login(this.formLogin.value)
+  .subscribe({
+        next: () => {
         this.router.navigate(['dashboard']);
-    // },
-    // error: error => {
-    //   this.error = error.error;}
-    //   });
+    },
+    error: error => {
+      this.error = error.error;}
+      });
     }
 
   onCancel() {

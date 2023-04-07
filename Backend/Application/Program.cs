@@ -65,6 +65,12 @@ builder.Services.AddControllers();
     app.UseSwagger();
     app.UseSwaggerUI();
 
+    app.UseCors(p => {
+        p.AllowAnyMethod();
+        p.AllowAnyHeader();
+        p.AllowAnyOrigin();
+    });
+
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
