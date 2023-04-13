@@ -26,17 +26,17 @@ services:
     ports:
       - "81:80"
 
-  # frontend:
-  #   build:
-  #     context: Frontend
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - ./Frontend/nginx-configs:/etc/nginx/conf.d
-  #   environment:
-  #     TZ: "America/Sao_Paulo"
-  #   restart: unless-stopped
+  frontend:
+    build:
+      context: Frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Frontend/nginx-configs:/etc/nginx/conf.d
+    environment:
+      TZ: "America/Sao_Paulo"
+    restart: unless-stopped
 
 volumes:
   dbdata:
