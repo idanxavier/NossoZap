@@ -10,6 +10,7 @@ import { HomePageComponent } from './presentation/pages/homePage/homePage.compon
 import { LoginComponent } from './presentation/pages/homePage/login/login.component';
 import { RegisterComponent } from './presentation/pages/homePage/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DashCardComponent } from './presentation/pages/dashBoard/dashCard/dashCard.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     DashBoardComponent,
+    DashCardComponent
   ],
   imports: [
     BrowserModule,
