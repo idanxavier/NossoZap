@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/security/auth.guard';
 import { DashBoardComponent } from './presentation/pages/dashBoard/dashBoard.component';
-import { DashCardComponent } from './presentation/pages/dashBoard/dashCard/dashCard.component';
 import { HomeCardComponent } from './presentation/pages/homePage/homeCard/homeCard.component';
 import { HomePageComponent } from './presentation/pages/homePage/homePage.component';
 import { LoginComponent } from './presentation/pages/homePage/login/login.component';
@@ -19,9 +18,7 @@ const routes: Routes = [
     
     
   { path: 'dashboard', component: DashBoardComponent, canActivate: [AuthGuard], 
-    children: [{path: '', component: DashCardComponent},
-
-  ]},
+},
 ];
 
 @NgModule({

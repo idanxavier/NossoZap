@@ -2,33 +2,6 @@
   background-color: #5a5a5a;
   height: 100vh;
 }
-  
-.logo{
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #5a5a5a;
-  text-decoration: none;
-  list-style: none;
-}
-
-.bgNav{
-  background-color: #e9e9e9;
-}
-  
-.logo:hover{
-  color: #000000;
-  font-size: 1.5rem;
-  text-decoration: underline;
-}
-  
-.btnsNav {
-  display: flex;
-  justify-content:flex-end;
-}
-  
-.btnSpacing {
-  margin-right: 15px;
-}
 
 .homeCard {
   border-radius: 10px;

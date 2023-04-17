@@ -1,11 +1,16 @@
-<nav class="navbar navbar-expand-lg bgNav">
-  <div class="container-fluid">
-    <a href="" class="logo"><img src="/assets/images/logo.jpg" class="imgBorder img-fluid"></a>
-    <div class="collapse navbar-collapse btnNav">
-      <a class="btn btn-light" (click)="logout()">Sair<i class="bi bi-door-open-fill"></i></a>
+<app-navDash></app-navDash>
+
+<div class="container-fluid bgPage">
+  <div class="row alignBgMessage">
+    <div class="col-11 bgMessage">
+      <div class="row" style="height: 100%;">
+        <div class="col-3 divisor">
+          <app-messages></app-messages>
+        </div>
+        <div class="col-9">
+          <app-chat></app-chat>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
-
-<router-outlet></router-outlet>
-
+</div>

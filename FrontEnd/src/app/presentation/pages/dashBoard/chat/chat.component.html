@@ -1,0 +1,30 @@
+<app-navChat></app-navChat>
+
+<div class="container-fluid ">
+  <div class="row card-body">
+    <div class="col-12 bgChat">
+      <!-- <div class="card MySendedMessage">
+        <div class="row">
+          <p>teste<br><span>10:24 17/04/2023</span></p>
+        </div>
+      </div>
+      <div class="card MessageReceived">
+        <div class="row">
+          <p>teste<br><span>10:24 17/04/2023</span></p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row inputMessage">
+      <div class="col-1 emojiIcon">
+        <i class="bi bi-emoji-smile w-25"></i>
+      </div>
+      <!-- [formGroup]="formMsg" -->
+      <form class="col-11">
+        <input (keydown.enter)="onSubmit()" type="text" class="form-control" placeholder="Digite aqui sua mensagem"
+          type="texto" formControlName="texto" autocomplete="texto">
+      </form>
+    </div>
+  </div>
+</div>

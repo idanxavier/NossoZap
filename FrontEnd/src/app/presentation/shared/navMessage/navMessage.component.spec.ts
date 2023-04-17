@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DashCardComponent } from './dashCard.component';
+import { NavMessageComponent } from './navMessage.component';
 
-describe('DashCardComponent', () => {
-  let component: DashCardComponent;
-  let fixture: ComponentFixture<DashCardComponent>;
+describe('NavMessageComponent', () => {
+  let component: NavMessageComponent;
+  let fixture: ComponentFixture<NavMessageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashCardComponent ]
+      declarations: [ NavMessageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashCardComponent);
+    fixture = TestBed.createComponent(NavMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
