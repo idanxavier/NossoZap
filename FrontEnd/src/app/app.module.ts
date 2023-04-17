@@ -13,12 +13,17 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LocalDateTimePipe } from './presentation/pipe/local-date-time.pipe';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-import { ChatComponent } from './presentation/pages/dashBoard/chat/chat.component';
-import { MessagesComponent } from './presentation/pages/dashBoard/messages/messages.component';
+import { ChatComponent } from './presentation/pages/dashBoard/messageExchange/chat/chat.component';
+import { MessagesComponent } from './presentation/pages/dashBoard/messageExchange/messages/messages.component';
 import { NavHomeComponent } from './presentation/shared/navHome/navHome.component';
 import { NavChatComponent } from './presentation/shared/navChat/navChat.component';
 import { NavDashComponent } from './presentation/shared/navDash/navDash.component';
 import { NavMessageComponent } from './presentation/shared/navMessage/navMessage.component';
+import { DashCardComponent } from './presentation/pages/dashBoard/dashCard/dashCard.component';
+import { SidebarComponent } from './presentation/pages/dashBoard/sidebar/sidebar.component';
+import { ListAllPostsComponent } from './presentation/pages/dashBoard/sidebar/listAllPosts/listAllPosts.component';
+import { MessageExchangeComponent } from './presentation/pages/dashBoard/messageExchange/messageExchange.component';
+import { NavMessageExchangeComponent } from './presentation/shared/navMessageExchange/navMessageExchange.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,12 @@ import { NavMessageComponent } from './presentation/shared/navMessage/navMessage
     NavHomeComponent,
     NavChatComponent,
     NavDashComponent,
-    NavMessageComponent
+    NavMessageExchangeComponent,
+    NavMessageComponent,
+    DashCardComponent,
+    SidebarComponent,
+    ListAllPostsComponent,
+    MessageExchangeComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,8 @@ import { HomeCardComponent } from './presentation/pages/homePage/homeCard/homeCa
 import { HomePageComponent } from './presentation/pages/homePage/homePage.component';
 import { LoginComponent } from './presentation/pages/homePage/login/login.component';
 import { RegisterComponent } from './presentation/pages/homePage/register/register.component';
+import { DashCardComponent } from './presentation/pages/dashBoard/dashCard/dashCard.component';
+import { MessageExchangeComponent } from './presentation/pages/dashBoard/messageExchange/messageExchange.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent,
@@ -18,7 +20,12 @@ const routes: Routes = [
     
     
   { path: 'dashboard', component: DashBoardComponent, canActivate: [AuthGuard], 
-},
+    children: [{path: '', component: DashCardComponent}
+  ]},
+
+  { path: 'messageExchange', component: MessageExchangeComponent, canActivate: [AuthGuard], 
+  children: [{path: '', component: MessageExchangeComponent}
+]},
 ];
 
 @NgModule({
