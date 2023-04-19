@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Model;
 using Model.DTO;
 using Model.JWT;
 using System;
@@ -11,8 +12,8 @@ namespace Service.Interface
 {
     public interface IAuthService
     {
-        Task<IdentityUser> SignUp(RegisterModel registerModel);
-        Task<UserDTO> SignIn(LoginModel loginModel);
-
+        Task<User> GetCurrentUser();
+        Task<User> GetUserById(string userId);
+        Task<User> GetUserByUserName(string username);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    partial class MySQLContextModelSnapshot : ModelSnapshot
+    [Migration("20230419171609_post")]
+    partial class post
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,32 +208,6 @@ namespace Application.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("Like");
-                });
-
-            modelBuilder.Entity("Model.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("fromUserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("toUserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("Model.Post", b =>

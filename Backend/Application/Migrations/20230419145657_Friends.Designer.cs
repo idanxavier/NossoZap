@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    partial class MySQLContextModelSnapshot : ModelSnapshot
+    [Migration("20230419145657_Friends")]
+    partial class Friends
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,59 +191,29 @@ namespace Application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("Postid")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("publicationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("id");
 
-                    b.HasIndex("Postid");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("publicationId");
 
                     b.ToTable("Like");
                 });
 
-            modelBuilder.Entity("Model.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("fromUserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("toUserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Message");
-                });
-
-            modelBuilder.Entity("Model.Post", b =>
+            modelBuilder.Entity("Model.Publication", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("message")
                         .IsRequired()
@@ -253,15 +226,11 @@ namespace Application.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("id");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Post");
+                    b.ToTable("Publication");
                 });
 
             modelBuilder.Entity("Model.User", b =>
@@ -315,10 +284,6 @@ namespace Application.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
-
-                    b.Property<string>("telephoneNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -401,27 +366,25 @@ namespace Application.Migrations
 
             modelBuilder.Entity("Model.Like", b =>
                 {
-                    b.HasOne("Model.Post", null)
-                        .WithMany("likes")
-                        .HasForeignKey("Postid");
-
                     b.HasOne("Model.User", null)
                         .WithMany("likes")
-                        .HasForeignKey("userId")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("Model.Publication", null)
+                        .WithMany("likes")
+                        .HasForeignKey("publicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Model.Post", b =>
+            modelBuilder.Entity("Model.Publication", b =>
                 {
                     b.HasOne("Model.User", null)
                         .WithMany("publications")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Model.Post", b =>
+            modelBuilder.Entity("Model.Publication", b =>
                 {
                     b.Navigation("likes");
                 });

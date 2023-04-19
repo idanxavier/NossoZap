@@ -1,0 +1,26 @@
+﻿using Infrastructure.Data.Context;
+using Infrastructure.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Model;
+
+namespace Infrastructure.Repositories
+{
+    public class FriendRepository : GenericRepository<Friend, int>
+    {
+        public readonly MySQLContext _context;
+        public FriendRepository(MySQLContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task<Friend> GetFriendUsingIds(string userId, string friendId) 
+        {
+            return await _context.Friend.Where(x => x.userId.Equals(userId) && x.friendId.Equals(friendId)).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Friend>> ListFriendsByUserId(string userId)
+        {
+            return await _context.Friend.Where(x => x.userId.Equals(userId)).ToListAsync();
+        }
+    }
+}

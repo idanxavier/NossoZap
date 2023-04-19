@@ -1,9 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Model;
 using Model.DTO;
 using Model.JWT;
 using Service.Interface;
@@ -12,86 +15,45 @@ namespace Service.Implementation
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration ?_configuration;
+        private readonly UserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<User> _userManager;
 
-        public AuthService(UserManager<IdentityUser> userManager,
-        RoleManager<IdentityRole> roleManager,
-        IConfiguration configuration)
+        public AuthService(UserRepository userRepository, IHttpContextAccessor httpContextAccessor, UserManager<User> userManager)
         {
+            _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
         }
 
-        public async Task<IdentityUser> SignUp(RegisterModel registerModel)
+        public async Task<User> GetCurrentUser()
         {
-            var userExists = await _userManager.FindByNameAsync(registerModel.Username);
-            if (userExists != null)
-                throw new ArgumentException("Username already exists.");
+            var userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User); // Get user id:
 
-            IdentityUser user = new()
-            {
-                Email = registerModel.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerModel.Username
-            };
+            User user = await _userRepository.GetUser(userId);
 
-            var result = await _userManager.CreateAsync(user, registerModel.Password);
-            if (!result.Succeeded)
-                throw new ArgumentException("User creation failed! Please check user details and try again.");
 
             return user;
         }
 
-        public async Task<UserDTO> SignIn(LoginModel loginModel)
+        public async Task<User> GetUserById(string userId)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(loginModel.Username);
+            User user = await _userRepository.GetUser(userId);
             if (user == null)
-                throw new ArgumentException("User doesn't exists.");
-
-            if (!await _userManager.CheckPasswordAsync(user, loginModel.Password))
-                throw new ArgumentException("Wrong password.");
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var authClaims = new List<Claim> {
-             new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        };
-
-            foreach (var userRole in roles)
             {
-                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                throw new ArgumentException("Usuario não encontrado");
             }
 
-            var token = GetToken(authClaims);
-            UserDTO userDTO = new UserDTO()
-            {
-                User = user,
-                Token = new JWTToken()
-                {
-                    Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    Expiration = token.ValidTo
-                }
-            };
-            return userDTO;
-
+            return user;
         }
 
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
+        public async Task<User> GetUserByUserName(string username)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            User user = await _userRepository.GetUserByUserName(username);
+            if (user == null)
+                throw new ArgumentException("Usuário não encontrado");
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-            return token;
+            return user;
         }
     }
 }
