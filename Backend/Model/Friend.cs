@@ -10,7 +10,7 @@ namespace Model
     public class Friend
     {
         [Key]
-        public string id {  get; set; }
+        public int id {  get; set; }
         public DateTime addedAt { get; set; }
         public string userId { get; set; }
         public string friendId { get; set; }
