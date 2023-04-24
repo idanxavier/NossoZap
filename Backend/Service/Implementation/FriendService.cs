@@ -71,7 +71,7 @@ namespace Service.Implementation
             {
                 var dto = new FriendDTO
                 {
-                    id = friend.id,
+                    id = friend.friendId,
                     addedAt = friend.addedAt,
                     username = friend.friendName
                 };
