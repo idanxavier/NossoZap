@@ -27,7 +27,7 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
     this.currentUser = this.currentUserSubject.asObservable();
 
-    this.accessTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('accessToken')!));
+    this.accessTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('access_token')!));
     this.accessToken = this.currentUserSubject.asObservable();
   }
 
@@ -42,8 +42,8 @@ export class AuthenticationService {
   login(user: LoginDTO) {
     return this.authenticationRepository.login(user)
     .pipe(map(data => {
-      localStorage.setItem('accessToken', JSON.stringify(data.token));
-      this.accessTokenSubject.next(data.token);
+      localStorage.setItem('access_token', JSON.stringify(data.access_token));
+      this.accessTokenSubject.next(data.access_token);
       this.currentUserSubject.next(data.user);
       localStorage.setItem('currentUser', JSON.stringify(data.user));
       return data;
@@ -56,7 +56,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('access_token');
     this.currentUserSubject.next(null!);
   }
 

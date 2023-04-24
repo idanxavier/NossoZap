@@ -18,14 +18,13 @@ const routes: Routes = [
       {path: 'register', component: RegisterComponent},
     ]},
     
-    
-  { path: 'dashboard', component: DashBoardComponent, canActivate: [AuthGuard], 
+  { path: 'dashboard', component: DashBoardComponent , canActivate: [AuthGuard], 
     children: [{path: '', component: DashCardComponent}
   ]},
 
-  { path: 'messageExchange', component: MessageExchangeComponent, canActivate: [AuthGuard], 
+  { path: 'messageExchange', component: MessageExchangeComponent, canActivate: [AuthGuard],
   children: [{path: '', component: MessageExchangeComponent}
-]},
+  ]},
 ];
 
 @NgModule({

@@ -1,4 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
+import { FriendService } from 'src/app/domain/services/friend.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,11 +11,30 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private elementRef: ElementRef) {}
+  formFriend: FormGroup;
+  friends: friendDTO[] = [];
+  
+  constructor(
+    private elementRef: ElementRef,
+    private formBuilder: FormBuilder,
+    private friendService: FriendService,
+    private router: Router) 
+    {
+      this.formFriend = this.formBuilder.group({
+        username: [null]
+      });
+    }
 
   openModalAddFriend() {
     const modal = this.elementRef.nativeElement.querySelector('.addFriend');
     modal.style.display = 'block';
+  }
+
+  addFriend() {
+    this.friendService.AddFriend(this.formFriend.value)
+    .subscribe( () => {
+    window.location.reload();
+    })
   }
 
   closeModalAddFriend() {
@@ -22,6 +45,24 @@ export class SidebarComponent implements OnInit {
   openModalPedidosAmizade() {
     const modal = this.elementRef.nativeElement.querySelector('.pedidosAmizade');
     modal.style.display = 'block';
+  }
+
+  ListRequestsPendents() {
+    this.friendService.ListRequestsPendents().subscribe((data : any) => {
+      this.friends = data;
+    })
+  }
+
+  AcceptRequest(friendId: string) {
+    this.friendService.AcceptRequest(friendId).subscribe((data : any) => {
+      this.friends = data;
+    })
+  }
+
+  RefuseRequest(friendId: any) {
+    this.friendService.RefuseRequest(friendId).subscribe((data : any) => {
+    window.location.reload();
+    })
   }
 
   closeModalPedidosAmizade() {

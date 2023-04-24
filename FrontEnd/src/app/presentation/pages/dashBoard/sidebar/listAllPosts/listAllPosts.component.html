@@ -2,23 +2,24 @@
   <div class="col-8 card styleOfCard">
     <div class="row">
       <div class="col-1">
-        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon"/>
+        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
       </div>
       <div class="col-11">
-        <input type="text" class="form-control newPost" id="newPost" aria-describedby="newPost" placeholder="No que você está pensando ?">
+        <input type="text" (click)="openModalNewPost()" class="form-control newPost" id="newPost"
+          aria-describedby="newPost" placeholder="No que você está pensando ?">
       </div>
     </div>
   </div>
 
- <!-- novas publicações -->
- 
+  <!-- novas publicações -->
   <div class="col-8 card styleOfCard">
     <div class="row ">
       <div class="col-1 alignImg">
-        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon"/>
+        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
       </div>
       <div class="col-11">
-        <span class="title">Daniel Cerqueira</span><br><span class="subtitle">18 horas atrás <i class="bi bi-people-fill"></i></span>
+        <span class="title">Daniel Cerqueira</span><br><span class="subtitle">18 horas atrás <i
+            class="bi bi-people-fill"></i></span>
       </div>
     </div>
     <div class="row">
@@ -42,13 +43,79 @@
 
     <div class="row  mt-2">
       <div class="col-1">
-        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon"/>
+        <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
       </div>
       <div class="col-11">
-        <input type="text" class="form-control newPost" id="comment" aria-describedby="comment" placeholder="Escreva um comentário...">
+        <input type="text" class="form-control newPost" id="comment" aria-describedby="comment"
+          placeholder="Escreva um comentário...">
       </div>
     </div>
   </div>
 
 
+  <!-- modal criar postagem -->
+  <div class="createPost" style="display: none;">
+    <div class="createPost-content modal-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card-title title">
+            Criar nova postagem
+            <img src="/assets/images/addfriend.png" width="8%" class="img-fluid ">
+          </div>
+          <div class="row card-body">
+            <div class="col-lg-12 mt-4">
+              <form [formGroup]="formCreate">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="Titulo"><i class="bi bi-card-list"></i></span>
+                  <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo"
+                    autocomplete="titulo">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="mensagem"><i class="bi bi-window-dock"></i></span>
+                  <input type="text" class="form-control" placeholder="Mensagem" type="mensagem"
+                    formControlName="mensagem" autocomplete="mensagem">
+                </div>
+                <div class="input-group mb-3">
+                  <input type="file" id="foto" name="avatar" accept="image/png, image/jpeg">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card-footer alignBtns">
+            <button type="button" class="btn btn-primary mx-3" (click)="createPost()">Adicionar</button>
+            <button type="button" class="btn btn-secondary mx-3" (click)="closeModalNewPost()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal atualizar postagem -->
+  <div class="updatePost" style="display: none;">
+    <div class="updatePost-content modal-content">
+      <div class="row">
+        <div class="col-12 mc-card card-title mc-title">Atualizar o Post
+          <div class="row card-body">
+            <div class="col-12">
+              <form [formGroup]="formUpdate">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="Titulo"><i class="bi bi-card-list"></i></span>
+                  <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo"
+                    autocomplete="titulo">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="mensagem"><i class="bi bi-window-dock"></i></span>
+                  <input type="text" class="form-control" placeholder="Mensagem" type="mensagem"formControlName="mensagem" autocomplete="mensagem">
+                </div>
+              </form>
+            </div>
+            <div class="card-footer mc-btn">
+              <button type="button" class="btn btn-primary mx-3" (click)="updatePost()">Atualizar</button>
+              <button type="button" class="btn btn-secondary mx-3" (click)="closeModalAttPost()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
