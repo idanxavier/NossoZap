@@ -60,23 +60,17 @@
         <div class="col-12">
           <div class="card-title title">
             Criar nova postagem
-            <img src="/assets/images/addfriend.png" width="8%" class="img-fluid ">
+            <i class="bi bi-postcard" style="font-size: 1.3rem;"></i>
           </div>
           <div class="row card-body">
             <div class="col-lg-12 mt-4">
               <form [formGroup]="formCreate">
                 <div class="input-group mb-3">
-                  <span class="input-group-text" id="Titulo"><i class="bi bi-card-list"></i></span>
-                  <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo"
-                    autocomplete="titulo">
-                </div>
-                <div class="input-group mb-3">
                   <span class="input-group-text" id="mensagem"><i class="bi bi-window-dock"></i></span>
-                  <input type="text" class="form-control" placeholder="Mensagem" type="mensagem"
-                    formControlName="mensagem" autocomplete="mensagem">
+                  <input type="text" class="form-control" placeholder="Mensagem" formControlName="message" autocomplete="mensagem">
                 </div>
-                <div class="input-group mb-3">
-                  <input type="file" id="foto" name="avatar" accept="image/png, image/jpeg">
+                <div class="input-group mb-3 alignCenter" >
+                  <input type="file" id="photo" formControlName="photo" #imageInput (change)="processFile(imageInput)" name="avatar" accept="image/png, image/jpeg">
                 </div>
               </form>
             </div>
@@ -99,13 +93,11 @@
             <div class="col-12">
               <form [formGroup]="formUpdate">
                 <div class="input-group mb-3">
-                  <span class="input-group-text" id="Titulo"><i class="bi bi-card-list"></i></span>
-                  <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo"
-                    autocomplete="titulo">
+                  <span class="input-group-text" id="mensagem"><i class="bi bi-window-dock"></i></span>
+                  <input type="text" class="form-control" placeholder="Mensagem" type="mensagem"formControlName="message" autocomplete="mensagem">
                 </div>
                 <div class="input-group mb-3">
-                  <span class="input-group-text" id="mensagem"><i class="bi bi-window-dock"></i></span>
-                  <input type="text" class="form-control" placeholder="Mensagem" type="mensagem"formControlName="mensagem" autocomplete="mensagem">
+                  <input type="file" id="foto" name="avatar" accept="image/png, image/jpeg">
                 </div>
               </form>
             </div>

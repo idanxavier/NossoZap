@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PostRepository } from 'src/app/data/repositories/post.repository';
 import { Post } from '../models/postModel';
+import { PostDTO } from '../models/Dtos/PostDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class PostService {
     return this.postRepository.deletePost(id);
   }
 
-  createPost(post: Post) {
+  createPost(post: PostDTO) {
     return this.postRepository.createPost(post);
   }
 
