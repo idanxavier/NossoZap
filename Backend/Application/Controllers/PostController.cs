@@ -58,5 +58,17 @@ namespace Application.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpGet("list-posts")]
+        public async Task<IActionResult> ListPosts()
+        {
+            try
+            {
+                return Ok(await _postService.ListPosts());
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

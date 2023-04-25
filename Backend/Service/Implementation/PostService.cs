@@ -14,11 +14,13 @@ namespace Service.Implementation
     {
         private readonly PostRepository _postRepository;
         private readonly IAuthService _authService;
+        private readonly IFriendService _friendService;
 
-        public PostService(PostRepository postRepository, IAuthService authService)
+        public PostService(PostRepository postRepository, IAuthService authService, IFriendService friendService)
         { 
             _postRepository = postRepository;
             _authService = authService;
+            _friendService = friendService;
         }
 
         public async Task<Post> CreatePost(PostDTO post)
@@ -54,6 +56,29 @@ namespace Service.Implementation
                 throw new ArgumentException("Post doesn't exists.");
 
             return post;
+        }
+
+        public async Task<List<Post>> ListPosts()
+        {
+            var friends = await _friendService.ListFriends();
+            var posts = await _postRepository.ListPostsByFriends(friends);
+            return posts;
+
+            //foreach(var friend in friends)
+            //{
+            //    var friendPosts = _postRepository.ListPostsByUserId(friend.id);
+            //    foreach (var post in friendPosts)
+            //    {
+            //        posts.Add(post);
+            //    }
+            //}
+
+            //if (toUser.Id == currentUser.Id)
+            //    throw new ArgumentException("You can't send a message to yourself.");
+
+            //var messages = await _messageRepository.ListMessagesWithUser(currentUser.Id, toUser.Id);
+
+            //return messages;
         }
     }
 }

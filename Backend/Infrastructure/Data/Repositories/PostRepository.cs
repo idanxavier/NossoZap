@@ -2,6 +2,7 @@
 using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Model;
+using Model.DTO;
 
 namespace Infrastructure.Repositories
 {
@@ -16,6 +17,12 @@ namespace Infrastructure.Repositories
         public async Task<List<Post>> ListPostsByUserId(string userId)
         {
             return await _context.Post.Where(x => x.userId.Equals(userId)).ToListAsync();
+        }
+
+        public async Task<List<Post>> ListPostsByFriends(List<FriendDTO> friends)
+        {
+            var friendIds = friends.Select(x => x.id).ToList();
+            return await _context.Post.Where(x => friendIds.Contains(x.userId)).ToListAsync();
         }
     }
 }

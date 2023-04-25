@@ -8,5 +8,6 @@ namespace Service.Interface
         Task<Post> CreatePost(PostDTO post);
         Task<Post> GetPost(int postId);
         Task<bool> RemovePost(int postId);
+        Task<List<Post>> ListPosts();
     }
 }

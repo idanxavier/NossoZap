@@ -31,6 +31,9 @@ namespace Service.Implementation
             if (friendUser == null)
                 throw new ArgumentException($"User {username} doesn't exists.");
 
+            if (currentUser.Id == friendUser.Id)
+                throw new ArgumentException("You can't add yourself");
+
             var alreadyFriend = await _friendRepository.GetFriendUsingIds(currentUser.Id, friendUser.Id);
 
             if (alreadyFriend != null)
