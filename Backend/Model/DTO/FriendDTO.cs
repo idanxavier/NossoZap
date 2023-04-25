@@ -12,4 +12,15 @@ namespace Model.DTO
         public string username { get; set; }
         public DateTime addedAt { get; set; }
     }
+
+    public class AddFriendDTO
+    {
+        public string Username { get; set; }
+    }
+
+    public class RemoveFriendDTO
+    {
+        public string Username { get; set; }
+
+    }
 }

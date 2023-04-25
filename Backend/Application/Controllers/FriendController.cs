@@ -20,11 +20,11 @@ namespace Application.Controllers
         }
 
         [HttpPost("add-friend")]
-        public async Task<IActionResult> AddFriend([FromBody] string username)
+        public async Task<IActionResult> AddFriend([FromBody] AddFriendDTO friendDTO)
         {
             try
             {
-                return Ok(await _friendService.AddFriend(username));
+                return Ok(await _friendService.AddFriend(friendDTO));
             }
             catch (Exception error)
             {
@@ -33,11 +33,11 @@ namespace Application.Controllers
         }
 
         [HttpDelete("remove-friend")]
-        public async Task<IActionResult> RemoveFriend([FromBody] string username)
+        public async Task<IActionResult> RemoveFriend([FromBody] RemoveFriendDTO friendDTO)
         {
             try
             {
-                return Ok(await _friendService.RemoveFriend(username));
+                return Ok(await _friendService.RemoveFriend(friendDTO));
             }
             catch (Exception error)
             {

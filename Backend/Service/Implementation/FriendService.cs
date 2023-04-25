@@ -20,8 +20,11 @@ namespace Service.Implementation
             _userRepository = userRepository;
         }
 
-        public async Task<Boolean> AddFriend(string username)
+        public async Task<Boolean> AddFriend(AddFriendDTO friendDTO)
         {
+            var username = friendDTO.Username;
+            if (username == null) throw new ArgumentNullException($"Invalid username: {username}.");
+
             User currentUser = await _authService.GetCurrentUser();
             User friendUser = await _userRepository.GetUserByUserName(username);
 
@@ -44,8 +47,11 @@ namespace Service.Implementation
             return await _friendRepository.CreateAsync(friend) != null;
         }
 
-        public async Task<Boolean> RemoveFriend(string username)
+        public async Task<Boolean> RemoveFriend(RemoveFriendDTO friendDTO)
         {
+            var username = friendDTO.Username;
+            if (username == null) throw new ArgumentNullException($"Invalid username: {username}.");
+
             User currentUser = await _authService.GetCurrentUser();
             User friendUser = await _userRepository.GetUserByUserName(username);
 
