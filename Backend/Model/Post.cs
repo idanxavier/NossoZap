@@ -12,7 +12,6 @@ namespace Model
         [Key]
         public int id { get; set; }
         public string userId { get; set; }
-        public string title { get; set; }
         public string message { get; set; }
         public Byte[]? photo { get; set; }
         public List<Like> likes { get; set; }   

@@ -30,7 +30,6 @@ namespace Service.Implementation
                 date = DateTime.Now,
                 userId = currentUser.Id,
                 message = post.message,
-                title = post.title,
                 photo = post.photo
         };
 
