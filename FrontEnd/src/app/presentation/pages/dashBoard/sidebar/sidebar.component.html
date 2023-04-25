@@ -6,7 +6,7 @@
         <a class="sublinks" (click)="openModalAddFriend()"><i class="bi bi-person-plus-fill icon"></i> Adicionar amigo</a>
         <a class="sublinks" (click)="openModalPedidosAmizade()"><i class="bi bi-card-checklist icon"></i> Pedidos de amizade</a>
         <a class="sublinks" (click)="openModalFriendList()"><i class="bi bi-people-fill icon"></i> Lista de amigos</a>
-        <a class="sublinks"  href="messageExchange"><i class="bi bi-send-fill icon"></i> Mensagens Recebidas</a>
+        <a class="sublinks"  href="messageExchange"><i class="bi bi-send-fill icon"></i> Messenger</a>
       </div>
     </div>
 </div>
@@ -22,20 +22,16 @@
         </div>
         <div class="row card-body">
           <div class="col-lg-12 mt-4">
-            <form class="align">
+            <form class="align" [formGroup]="formFriend">
               <div class="input-group inputs">
                 <span class="input-group-text" id="username"><i class="bi bi-file-earmark-person"></i></span>
                 <input type="text" class="form-control" placeholder="Nome do usuario" type="username" formControlName="username" autocomplete="Username">
-              </div>
-              <div class="input-group inputs">
-                <span class="input-group-text" id="telephone"><i class="bi bi-telephone"></i></span>
-                <input type="text" class="form-control" placeholder="Numero de Telefone" type="telephone" formControlName="telephone" autocomplete="Username">
               </div>
             </form>
           </div>
         </div>
         <div class="card-footer alignBtns">
-          <button type="button" class="btn btn-primary mx-3" >Adicionar</button>
+          <button type="button" class="btn btn-primary mx-3" (click)="addFriend()">Adicionar</button>
           <button type="button" class="btn btn-secondary mx-3" (click)="closeModalAddFriend()">Cancelar</button>
         </div>
       </div>
@@ -58,18 +54,18 @@
               <table class="table table-striped table-responsive">
                 <thead class="thead-dark">
                   <tr class="mc-data-table">
-                    <th scope="col">Nome do usuario</th>
+                    <th scope="col" style="text-align: center;">Nome do usuario</th>
                   </tr>
                 </thead>
-                <tbody >
-                  <tr class="mc-data-table">
+                <tbody *ngIf="friends">
+                  <tr  *ngFor="let friend of friends" class="mc-data-table">
                     <td class="d-flex justify-content-between">
                       <div class="d-flex justify-content-start">
-                        <span class="justify-self-start">Lucas da Silva</span>
+                        <span class="justify-self-start">{{friend.friendUsername}}</span>
                       </div>
                       <div class="d-flex justify-content-end">
-                        <a class="me-3"><i class="bi bi-check-circle-fill"></i></a>
-                        <a class=""><i class="bi bi-x-circle-fill" style="color: red;"></i></a>
+                        <a class="me-3"  (click)="AcceptRequest(friend.id)"><i class="bi bi-check-circle-fill"></i></a>
+                        <a class="" (click)="RefuseRequest(friend.id)"><i class="bi bi-x-circle-fill" style="color: red;"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -130,10 +126,10 @@
                     <th scope="col" class="text-center">Nome do usuario</th>
                   </tr>
                 </thead>
-                <tbody >
-                  <tr class="alignCenter">
+                <tbody *ngIf="friends">
+                  <tr *ngFor="let friend of friends" class="alignCenter">
                     <td class="d-flex justify-content-between">
-                        <a><span class="text-center pe-5">Lucas da Silva</span>
+                        <a [routerLink]="['/messageExchange']"><span class="text-center pe-5">{{friend.friendUsername}}</span>
                         <i class="bi bi-send-plus"></i></a>
                     </td>
                   </tr>

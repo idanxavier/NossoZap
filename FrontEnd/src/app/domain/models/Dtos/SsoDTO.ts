@@ -2,7 +2,7 @@ import { User } from "../userModel";
 
 export class SsoDTO {
 
-  token: string = '';
+  access_token: string = '';
   user: User = new User();
 
 }
