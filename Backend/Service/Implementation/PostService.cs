@@ -60,25 +60,10 @@ namespace Service.Implementation
 
         public async Task<List<Post>> ListPosts()
         {
+            var currentUser = await _authService.GetCurrentUser();
             var friends = await _friendService.ListFriends();
-            var posts = await _postRepository.ListPostsByFriends(friends);
+            var posts = await _postRepository.ListPostsByFriends(friends, currentUser.Id);
             return posts;
-
-            //foreach(var friend in friends)
-            //{
-            //    var friendPosts = _postRepository.ListPostsByUserId(friend.id);
-            //    foreach (var post in friendPosts)
-            //    {
-            //        posts.Add(post);
-            //    }
-            //}
-
-            //if (toUser.Id == currentUser.Id)
-            //    throw new ArgumentException("You can't send a message to yourself.");
-
-            //var messages = await _messageRepository.ListMessagesWithUser(currentUser.Id, toUser.Id);
-
-            //return messages;
         }
     }
 }

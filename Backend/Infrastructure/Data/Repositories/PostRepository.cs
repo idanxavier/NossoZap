@@ -19,10 +19,10 @@ namespace Infrastructure.Repositories
             return await _context.Post.Where(x => x.userId.Equals(userId)).ToListAsync();
         }
 
-        public async Task<List<Post>> ListPostsByFriends(List<FriendDTO> friends)
+        public async Task<List<Post>> ListPostsByFriends(List<FriendDTO> friends, string userId)
         {
             var friendIds = friends.Select(x => x.id).ToList();
-            return await _context.Post.Where(x => friendIds.Contains(x.userId)).ToListAsync();
+            return await _context.Post.Where(x => friendIds.Contains(x.userId) || x.userId.Equals(userId)).OrderBy(x => x.date).ToListAsync();
         }
     }
 }

@@ -44,5 +44,18 @@ namespace Application.Controllers
                 return BadRequest(error.Message);
             }
         }
+
+        [HttpGet("list-friends")]
+        public async Task<IActionResult> ListFriends()
+        {
+            try
+            {
+                return Ok(await _friendService.ListFriends());
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }
