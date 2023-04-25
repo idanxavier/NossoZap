@@ -9,6 +9,6 @@ namespace Model.DTO
     public class PostDTO
     {
         public string message { get; set; }
-        public Byte[]? photo { get; set; }
+        public string photo { get; set; }
     }
 }
