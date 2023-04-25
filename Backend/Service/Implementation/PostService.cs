@@ -32,7 +32,8 @@ namespace Service.Implementation
                 date = DateTime.Now,
                 userId = currentUser.Id,
                 message = post.message,
-                photo = Encoding.ASCII.GetBytes(post.photo)
+                photo = Encoding.ASCII.GetBytes(post.photo),
+                username = currentUser.UserName
         };
 
             return await _postRepository.CreateAsync(newPost);
