@@ -22,7 +22,7 @@ namespace Infrastructure.Repositories
         public async Task<List<Post>> ListPostsByFriends(List<FriendDTO> friends, string userId)
         {
             var friendIds = friends.Select(x => x.id).ToList();
-            return await _context.Post.Where(x => friendIds.Contains(x.userId) || x.userId.Equals(userId)).OrderBy(x => x.date).ToListAsync();
+            return await _context.Post.Where(x => friendIds.Contains(x.userId) || x.userId.Equals(userId)).OrderByDescending(x => x.date).ToListAsync();
         }
     }
 }

@@ -24,6 +24,7 @@ import { SidebarComponent } from './presentation/pages/dashBoard/sidebar/sidebar
 import { ListAllPostsComponent } from './presentation/pages/dashBoard/sidebar/listAllPosts/listAllPosts.component';
 import { MessageExchangeComponent } from './presentation/pages/dashBoard/messageExchange/messageExchange.component';
 import { NavMessageExchangeComponent } from './presentation/shared/navMessageExchange/navMessageExchange.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { NavMessageExchangeComponent } from './presentation/shared/navMessageExc
     DashCardComponent,
     SidebarComponent,
     ListAllPostsComponent,
-    MessageExchangeComponent
+    MessageExchangeComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +55,7 @@ import { NavMessageExchangeComponent } from './presentation/shared/navMessageExc
   ],
   providers: [
     LocalDateTimePipe,
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

@@ -23,8 +23,8 @@ export class FriendService {
     return this.friendRepository.RemoveFriend(formMsg);
   }
 
-  ListFriendsAccepted() {
-    return this.friendRepository.ListFriendsAccepted();
+  ListFriends() {
+    return this.friendRepository.ListFriends();
   }
 
   ListRequestsPendents() {
