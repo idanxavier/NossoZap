@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/domain/services/authentication.se
 import { PostService } from 'src/app/domain/services/post.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostDTO } from 'src/app/domain/models/Dtos/PostDTO';
+import { DatePipe } from '@angular/common';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -31,7 +32,7 @@ export class ListAllPostsComponent implements OnInit {
   formCreate: FormGroup;
   formUpdate: FormGroup;
   currentPost: number = 0;
-
+  currentDate = new Date();
   
   constructor(
     private elementRef: ElementRef,
@@ -40,7 +41,8 @@ export class ListAllPostsComponent implements OnInit {
     private router: Router,
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
-    public domSanitizer: DomSanitizer
+    public domSanitizer: DomSanitizer,
+    private datePipe: DatePipe
     ) 
     {
       this.currentUser = authenticationService.currentUserValue,
@@ -61,13 +63,37 @@ export class ListAllPostsComponent implements OnInit {
     }
 
   ngOnInit():void {
-    // this.listPosts();
+    this.listPosts();
   }
 
   listPosts(){
     this.postService.listPosts().subscribe((data : any) => {
       this.posts = data;
     })
+  }
+
+  timeDifference(createdAt: string) {
+    const createdAtDate = new Date(createdAt);
+    console.log("created =" + createdAtDate);
+    console.log("current =" + this.currentDate);
+    const diff = this.currentDate.getTime() - createdAtDate.getTime();
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const formattedTime = this.datePipe.transform(createdAtDate, 'short');
+
+    if (days > 0) {
+      return `${days} dias atrás `;
+    } else if (hours > 0) {
+      return `${hours} horas atrás `;
+    } else if (minutes > 0) {
+      return `${minutes} minutos atrás `;
+    } else if (seconds <= 30) {
+      return `agora `;
+    } else {
+      return `${seconds} segundos atrás `;
+    }
   }
 
   processFile(imageInput: any) {

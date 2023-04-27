@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
+import { User } from 'src/app/domain/models/userModel';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FriendService } from 'src/app/domain/services/friend.service';
 
 @Component({
@@ -13,16 +15,19 @@ export class SidebarComponent implements OnInit {
 
   formFriend: FormGroup;
   friends: friendDTO[] = [];
-  
+  currentUser : User;
   constructor(
     private elementRef: ElementRef,
     private formBuilder: FormBuilder,
     private friendService: FriendService,
-    private router: Router) 
+    private router: Router,
+    private authenticationService: AuthenticationService) 
     {
       this.formFriend = this.formBuilder.group({
         username: [null]
       });
+
+      this.currentUser = this.authenticationService.currentUserValue;
     }
 
   openModalAddFriend() {
@@ -65,6 +70,12 @@ export class SidebarComponent implements OnInit {
     })
   }
 
+  ListFriends(){
+    this.friendService.ListFriends().subscribe((data : any) => {
+      this.friends = data;
+    })
+  }
+
   closeModalPedidosAmizade() {
     const modal = this.elementRef.nativeElement.querySelector('.pedidosAmizade');
     modal.style.display = 'none';
@@ -95,6 +106,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ListFriends();
   }
 
 }

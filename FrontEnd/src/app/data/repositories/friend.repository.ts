@@ -17,8 +17,8 @@ export class FriendRepository {
   return this.httpClient.delete(`${environment.apiUrl}` + '/Friend/remove-friend', formMsg);
   }
 
-  ListFriendsAccepted() {
-  return this.httpClient.get(`${environment.apiUrl}` + '/Friend/list-requests-accepted');
+  ListFriends() {
+  return this.httpClient.get(`${environment.apiUrl}` + '/Friend/list-friends');
   }
 
   ListRequestsPendents() {
