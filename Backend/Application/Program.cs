@@ -60,12 +60,14 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IFriendService, FriendService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 builder.Services.AddScoped(typeof(GenericRepository<,>));
 builder.Services.AddScoped<FriendRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PostRepository>();
 builder.Services.AddScoped<MessageRepository>();
+builder.Services.AddScoped<RequestRepository>();
 
 #endregion
 
