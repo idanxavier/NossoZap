@@ -20,6 +20,11 @@ namespace Service.Implementation
             _userRepository = userRepository;
         }
 
+        public async Task<Friend> GetFriendUsingIds(string fromUserId,  string toUserId)
+        {
+            return await _friendRepository.GetFriendUsingIds(fromUserId, toUserId);
+        }
+
         public async Task<bool> AddFriend(string toUsername)
         {
             User currentUser = await _authService.GetCurrentUser();
@@ -31,7 +36,7 @@ namespace Service.Implementation
             if (currentUser.Id == friendUser.Id)
                 throw new ArgumentException("You can't add yourself");
 
-            var alreadyFriend = await _friendRepository.GetFriendUsingIds(currentUser.Id, friendUser.Id);
+            var alreadyFriend = GetFriendUsingIds(currentUser.Id, friendUser.Id);
 
             if (alreadyFriend != null)
                 throw new ArgumentException($"You already have {toUsername} in your friends list.");

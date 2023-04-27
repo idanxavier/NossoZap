@@ -43,7 +43,7 @@ namespace Application.Controllers
             }
         }
 
-        [HttpGet("list-requests-pendent-requests")]
+        [HttpGet("list-pendent-requests")]
         public async Task<IActionResult> ListPendentRequests()
         {
             try
