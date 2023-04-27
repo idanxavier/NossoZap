@@ -5,7 +5,7 @@ namespace Service.Interface
 {
     public interface IFriendService
     {
-        Task<bool> AddFriend(AddFriendDTO username);
+        Task<bool> AddFriend(string toUsername);
         Task<bool> RemoveFriend(RemoveFriendDTO username);
         Task<List<FriendDTO>> ListFriends();
     }

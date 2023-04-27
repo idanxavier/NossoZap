@@ -20,16 +20,13 @@ namespace Service.Implementation
             _userRepository = userRepository;
         }
 
-        public async Task<Boolean> AddFriend(AddFriendDTO friendDTO)
+        public async Task<bool> AddFriend(string toUsername)
         {
-            var username = friendDTO.Username;
-            if (username == null) throw new ArgumentNullException($"Invalid username: {username}.");
-
             User currentUser = await _authService.GetCurrentUser();
-            User friendUser = await _userRepository.GetUserByUserName(username);
+            User friendUser = await _userRepository.GetUserByUserName(toUsername);
 
             if (friendUser == null)
-                throw new ArgumentException($"User {username} doesn't exists.");
+                throw new ArgumentException($"User {toUsername} doesn't exists.");
 
             if (currentUser.Id == friendUser.Id)
                 throw new ArgumentException("You can't add yourself");
@@ -37,7 +34,7 @@ namespace Service.Implementation
             var alreadyFriend = await _friendRepository.GetFriendUsingIds(currentUser.Id, friendUser.Id);
 
             if (alreadyFriend != null)
-                throw new ArgumentException($"You already have {username} in your friends list.");
+                throw new ArgumentException($"You already have {toUsername} in your friends list.");
 
             var friend = new Friend
             {

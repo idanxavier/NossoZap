@@ -39,6 +39,24 @@ namespace Service.Implementation
             return await _postRepository.CreateAsync(newPost);
         }
 
+        public async Task<Post> UpdatePost(UpdatePostDTO updatePost)
+        {
+            var post = await _postRepository.GetByIdAsync(updatePost.id);
+
+            if(post == null) 
+                throw new ArgumentException(nameof(updatePost));
+
+            var currentUser = await _authService.GetCurrentUser();
+
+            if(currentUser.Id != post.userId)
+                throw new ArgumentException("You can't update others post.");
+
+            post.message = updatePost.message;
+
+            await _postRepository.InsertOrUpdateAsync(post);
+            return post;
+        }
+
         public async Task<bool> RemovePost(int postId)
         {
             var post = await _postRepository.GetByIdAsync(postId);

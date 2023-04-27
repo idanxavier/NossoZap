@@ -15,6 +15,7 @@ namespace Infrastructure.Data.Context
         public DbSet<Like> Like { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Message> Message { get; set; }
+        public DbSet<Request> Request { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

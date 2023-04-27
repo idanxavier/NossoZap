@@ -19,19 +19,6 @@ namespace Application.Controllers
             _friendService = friendService;
         }
 
-        [HttpPost("add-friend")]
-        public async Task<IActionResult> AddFriend([FromBody] AddFriendDTO friendDTO)
-        {
-            try
-            {
-                return Ok(await _friendService.AddFriend(friendDTO));
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
         [HttpDelete("remove-friend")]
         public async Task<IActionResult> RemoveFriend([FromBody] RemoveFriendDTO friendDTO)
         {

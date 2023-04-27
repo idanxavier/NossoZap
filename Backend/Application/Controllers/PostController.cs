@@ -33,6 +33,20 @@ namespace Application.Controllers
             }
         }
 
+        [HttpPost("update-post")]
+        public async Task<IActionResult> UpdatePost([FromBody] UpdatePostDTO post)
+        {
+            try
+            {
+                return Ok(await _postService.UpdatePost(post));
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+
         [HttpDelete("remove-post")]
         public async Task<IActionResult> RemovePost([FromBody] int id)
         {
