@@ -48,11 +48,11 @@ namespace Application.Controllers
 
 
         [HttpDelete("remove-post")]
-        public async Task<IActionResult> RemovePost([FromBody] int id)
+        public async Task<IActionResult> RemovePost([FromQuery] int postId)
         {
             try
             {
-                return Ok(await _postService.RemovePost(id));
+                return Ok(await _postService.RemovePost(postId));
             }
             catch (Exception error)
             {
