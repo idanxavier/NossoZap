@@ -37,17 +37,13 @@ namespace Service.Implementation
             if (toUser == null)
                 throw new ArgumentException($"{toUsername} doesn't exists.");
 
-            if (fromUser == null)
-                throw new ArgumentException($"{fromUser} doesn't exists.");
-
             if (toUser.Id == fromUser.Id)
                 throw new ArgumentException("You can't send a request to yourself.");
 
-            var alreadyFriend = _friendService.GetFriendUsingIds(fromUser.Id, toUser.Id);
+            var alreadyFriend = await _friendService.GetFriendUsingIds(fromUser.Id, toUser.Id);
 
             if (alreadyFriend != null)
                 throw new ArgumentException($"You already have {toUser.UserName} in your friend list");
-
 
             var newRequest = new Request
             {
