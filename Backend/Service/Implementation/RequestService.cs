@@ -47,8 +47,8 @@ namespace Service.Implementation
 
             var newRequest = new Request
             {
-                fromUserId = fromUser.Id,
-                toUserId = toUser.Id,
+                fromUsername = fromUser.UserName,
+                toUsername = toUser.UserName,
                 date = DateTime.Now,
                 accepted = false
         };
