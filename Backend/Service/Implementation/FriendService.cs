@@ -36,7 +36,7 @@ namespace Service.Implementation
             if (currentUser.Id == friendUser.Id)
                 throw new ArgumentException("You can't add yourself");
 
-            var alreadyFriend = GetFriendUsingIds(currentUser.Id, friendUser.Id);
+            var alreadyFriend = await GetFriendUsingIds(currentUser.Id, friendUser.Id);
 
             if (alreadyFriend != null)
                 throw new ArgumentException($"You already have {toUsername} in your friends list.");

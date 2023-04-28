@@ -15,7 +15,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Friend> GetFriendUsingIds(string userId, string friendId) 
         {
-            return await _context.Friend.Where(x => x.userId.Equals(userId) && x.friendId.Equals(friendId)).FirstOrDefaultAsync();
+            return await _context.Friend.Where(x => x.userId.Equals(userId) && x.friendId.Equals(friendId) || x.userId.Equals(friendId) && x.friendId.Equals(userId)).FirstOrDefaultAsync();
         }
 
         public async Task<List<Friend>> ListFriendsByUserId(string userId)
