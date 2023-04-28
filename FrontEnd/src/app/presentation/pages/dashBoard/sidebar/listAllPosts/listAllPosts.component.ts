@@ -8,6 +8,7 @@ import { PostService } from 'src/app/domain/services/post.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostDTO } from 'src/app/domain/models/Dtos/PostDTO';
 import { DatePipe } from '@angular/common';
+import { UpdatePostDTO } from 'src/app/domain/models/Dtos/UpdatePostDTO';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -31,6 +32,7 @@ export class ListAllPostsComponent implements OnInit {
 
   formCreate: FormGroup;
   formUpdate: FormGroup;
+  formDelete: FormGroup;
   currentPost: number = 0;
   currentDate = new Date();
   
@@ -46,9 +48,6 @@ export class ListAllPostsComponent implements OnInit {
     ) 
     {
       this.currentUser = authenticationService.currentUserValue,
-      this.route.queryParams.subscribe(params => {
-        this.currentPost = params['id']
-      })
   
       this.formCreate = this.formbuilder.group({
         message: [null],
@@ -58,7 +57,11 @@ export class ListAllPostsComponent implements OnInit {
       this.formUpdate = this.formbuilder.group({
         id: [this.currentPost],
         message: [null],
-        photo: [null],
+
+      });
+
+      this.formDelete = this.formbuilder.group({
+        id: [this.currentPost],
       });
     }
 
@@ -74,8 +77,6 @@ export class ListAllPostsComponent implements OnInit {
 
   timeDifference(createdAt: string) {
     const createdAtDate = new Date(createdAt);
-    console.log("created =" + createdAtDate);
-    console.log("current =" + this.currentDate);
     const diff = this.currentDate.getTime() - createdAtDate.getTime();
     const seconds = Math.floor(diff / 1000);
     const minutes = Math.floor(seconds / 60);
@@ -122,7 +123,7 @@ export class ListAllPostsComponent implements OnInit {
   }
 
   deletePost(){
-    this.postService.deletePost(this.deletePostId).subscribe((data: any) =>{
+    this.postService.deletePost(this.formDelete.value.id).subscribe((data: any) =>{
       window.location.reload();
     })
   }
@@ -143,13 +144,25 @@ export class ListAllPostsComponent implements OnInit {
     modal.style.display = 'none';
   }
 
-  openModalAttPost() {
+  openModalAttPost(postId:Number) {
     const modal = this.elementRef.nativeElement.querySelector('.updatePost');
     modal.style.display = 'block';
+    this.formUpdate.patchValue({id: postId});
   }
 
   closeModalAttPost() {
     const modal = this.elementRef.nativeElement.querySelector('.updatePost');
+    modal.style.display = 'none';
+  }
+
+  openModalDeletePost(postId:Number) {
+    const modal = this.elementRef.nativeElement.querySelector('.deletePost');
+    modal.style.display = 'block';
+    this.formDelete.patchValue({id: postId});
+  }
+
+  closeModalDeletePost() {
+    const modal = this.elementRef.nativeElement.querySelector('.deletePost');
     modal.style.display = 'none';
   }
 }

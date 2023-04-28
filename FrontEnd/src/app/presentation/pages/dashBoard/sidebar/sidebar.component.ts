@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
+import { RequestDTO } from 'src/app/domain/models/Dtos/Request';
 import { User } from 'src/app/domain/models/userModel';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FriendService } from 'src/app/domain/services/friend.service';
@@ -16,6 +17,8 @@ export class SidebarComponent implements OnInit {
   formFriend: FormGroup;
   friends: friendDTO[] = [];
   currentUser : User;
+  requests : RequestDTO[] = [];
+  
   constructor(
     private elementRef: ElementRef,
     private formBuilder: FormBuilder,
@@ -54,18 +57,19 @@ export class SidebarComponent implements OnInit {
 
   ListRequestsPendents() {
     this.friendService.ListRequestsPendents().subscribe((data : any) => {
-      this.friends = data;
+      this.requests = data;
     })
   }
 
-  AcceptRequest(friendId: string) {
-    this.friendService.AcceptRequest(friendId).subscribe((data : any) => {
+  AcceptRequest(requestId: number) {
+    this.friendService.AcceptRequest(requestId).subscribe((data : any) => {
       this.friends = data;
+      window.location.reload();
     })
   }
 
-  RefuseRequest(friendId: any) {
-    this.friendService.RefuseRequest(friendId).subscribe((data : any) => {
+  RefuseRequest(requestId: number) {
+    this.friendService.RefuseRequest(requestId).subscribe((data : any) => {
     window.location.reload();
     })
   }
@@ -107,6 +111,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.ListFriends();
+    this.ListRequestsPendents();
   }
 
 }

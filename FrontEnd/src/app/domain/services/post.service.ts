@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PostRepository } from 'src/app/data/repositories/post.repository';
 import { Post } from '../models/postModel';
 import { PostDTO } from '../models/Dtos/PostDTO';
+import { UpdatePostDTO } from '../models/Dtos/UpdatePostDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +39,8 @@ export class PostService {
     return this.postRepository.createPost(post);
   }
 
-  updatePost(id:number) {
-    return this.postRepository.updatePost(id);
+  updatePost(updatePost:UpdatePostDTO) {
+    return this.postRepository.updatePost(updatePost);
   }
 
   createLike(id:number) {

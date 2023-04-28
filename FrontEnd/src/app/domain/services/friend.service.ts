@@ -1,13 +1,15 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FriendRepository } from 'src/app/data/repositories/friend.repository';
+import { environment } from 'src/environments/environment';
+import { AddFriendDTO } from '../models/Dtos/AddFriendDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
 
-  apiUrl = 'https://localhost:5001/api'
+
 
   constructor(
     private httpClient: HttpClient,
@@ -15,8 +17,8 @@ export class FriendService {
   ) { }
 
 
-  AddFriend(username: string) {
-    return this.friendRepository.AddFriend(username);
+  AddFriend(addFriendDTO: AddFriendDTO) {
+    return this.friendRepository.AddFriend(addFriendDTO);
   }
 
   RemoveFriend(formMsg: any) {
@@ -28,15 +30,15 @@ export class FriendService {
   }
 
   ListRequestsPendents() {
-    return this.httpClient.get(this.apiUrl + '/Friend/list-requests-pendents')
+    return this.friendRepository.ListRequestsPendents();
   }
 
-  AcceptRequest(friendId: string) {
-    return this.friendRepository.AcceptRequest(friendId)
+  AcceptRequest(requestId: number) {
+    return this.friendRepository.AcceptRequest(requestId)
 }
 
-  RefuseRequest(friendId: any) {
-    return this.friendRepository.RefuseRequest(friendId)
+  RefuseRequest(requestId: number) {
+    return this.friendRepository.RefuseRequest(requestId)
   }
 
 }

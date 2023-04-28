@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { AddFriendDTO } from "src/app/domain/models/Dtos/AddFriendDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -9,8 +10,8 @@ export class FriendRepository {
 
   constructor(private httpClient: HttpClient) { }
 
-  AddFriend(username: string) {
-  return this.httpClient.post(`${environment.apiUrl}` + '/Friend/add-friend', username) ;
+  AddFriend(addFriendDTO: AddFriendDTO) {
+  return this.httpClient.post(`${environment.apiUrl}` + '/Request/send-friend-request', addFriendDTO) ;
   }
 
   RemoveFriend(formMsg: any) {
@@ -22,18 +23,18 @@ export class FriendRepository {
   }
 
   ListRequestsPendents() {
-  return this.httpClient.get(`${environment.apiUrl}` + '/Friend/list-requests-pendents')
+  return this.httpClient.get(`${environment.apiUrl}` + '/Request/list-pendent-requests')
   }
 
-  AcceptRequest(friendId: string) {
-  return this.httpClient.post(`${environment.apiUrl}` + '/Friend/accept-friend-request-by-id','"' + friendId + '"' , { headers: new HttpHeaders({
+  AcceptRequest(requestId: number) {
+  return this.httpClient.post(`${environment.apiUrl}` + '/Request/accept-request','"' + requestId + '"' , { headers: new HttpHeaders({
       'Content-Type': 'application/json',
       })
     });
   }
 
-  RefuseRequest(friendId: any) {
-  return this.httpClient.delete(`${environment.apiUrl}` + '/Friend/refuse-friend-request-by-id', {body: '"' + friendId + '"', headers: new HttpHeaders({
+  RefuseRequest(requestId: number) {
+  return this.httpClient.delete(`${environment.apiUrl}` + '/Request/refuse-request', {body: '"' + requestId + '"', headers: new HttpHeaders({
       'Content-Type': 'application/json',
       })
     });
