@@ -15,7 +15,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Request>> ListPendentRequestsByUserId(string username)
         {
-            return await _context.Request.Where(x => x.toUsername == username).ToListAsync();
+            return await _context.Request.Where(x => x.toUsername == username && x.accepted == false).ToListAsync();
         }
     }
 }
