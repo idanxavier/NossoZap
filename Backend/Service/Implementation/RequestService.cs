@@ -74,7 +74,7 @@ namespace Service.Implementation
                 throw new ArgumentException("Request doesn't exists.");
 
             request.accepted = true;
-            await _friendService.AddFriend(request.fromUserId);
+            await _friendService.AddFriend(request.fromUsername);
 
             return await _requestRepository.InsertOrUpdateAsync(request) == 1;
         }
@@ -83,7 +83,7 @@ namespace Service.Implementation
         public async Task<List<Request>> ListPendentRequests()
         {
             var currentUser = await _authService.GetCurrentUser();
-            var requests = await _requestRepository.ListPendentRequestsByUserId(currentUser.Id);
+            var requests = await _requestRepository.ListPendentRequestsByUserId(currentUser.UserName);
 
             return requests;
         }
