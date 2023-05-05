@@ -37,7 +37,7 @@ export class PostRepository {
     return this.httpClient.post(`${environment.apiUrl}` + '/Post/comment-post', commentPost);
   }
 
-  updateComment(updateComment: CommentPostDTO) {
+  updateComment(updateComment: UpdatePostDTO) {
     return this.httpClient.post(`${environment.apiUrl}` + '/Post/update-comment', updateComment);
   }
 
