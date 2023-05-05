@@ -109,3 +109,36 @@
     display: flex;
     justify-content: center;
 }
+
+.input-with-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .input-with-icon input[type="text"] {
+    padding-right: 30px; /* espaço para o ícone */
+  }
+  
+  .input-with-icon i {
+    position: absolute;
+    top: 48%;
+    right: 26px;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+  }
+
+  .line{
+    border-bottom: 1px solid #b7b7b7;
+    border-top: 1px solid #b7b7b7;
+  }
+
+  .styleOfComment{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .bgComment{
+    padding: 5px;
+    background-color: #e9e9e9;
+    border-radius: 30px;
+  }
