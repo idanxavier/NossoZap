@@ -31,6 +31,7 @@ namespace Service.Implementation
                 postId = comment.postId,
                 userId = currentUser.Id,
                 date = DateTime.Now,
+                message = comment.message,
                 userName = currentUser.UserName
         };
 
