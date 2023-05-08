@@ -31,11 +31,11 @@ namespace Application.Controllers
         }
 
         [HttpDelete("remove-comment")]
-        public async Task<IActionResult> RemoveComment([FromQuery] int postId)
+        public async Task<IActionResult> RemoveComment([FromQuery] int commentId)
         {
             try
             {
-                return Ok(await _commentService.RemoveComment(postId));
+                return Ok(await _commentService.RemoveComment(commentId));
             }
             catch (Exception error)
             {
