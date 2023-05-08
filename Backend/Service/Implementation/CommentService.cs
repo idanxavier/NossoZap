@@ -42,8 +42,8 @@ namespace Service.Implementation
             var currentUser = await _authService.GetCurrentUser();
             var findComment = await _commentRepository.GetByIdAsync(commentId);
 
-            if (findComment.userId != currentUser.Id) throw new ArgumentException("You can't remove other comment.");
             if (findComment == null) throw new ArgumentException("Comment not found.");
+            if (findComment.userId != currentUser.Id) throw new ArgumentException("You can't remove other comment.");
 
             return await _commentRepository.DeleteAsync(findComment);
         }
