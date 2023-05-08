@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/domain/models/postModel';
@@ -21,6 +21,7 @@ class ImageSnippet {
 })
 export class ListAllPostsComponent implements OnInit {
 
+  @ViewChild('commentInput') commentInputRef!: ElementRef;
   deletePostId : number = 0;
   users: User[] = [];
   posts: Post[] = [];
@@ -29,12 +30,13 @@ export class ListAllPostsComponent implements OnInit {
 
   selectedFile?: ImageSnippet;
   postImage: string = ""
-
+  showButton = false;
   formCreate: FormGroup;
   formUpdate: FormGroup;
   formDelete: FormGroup;
   currentPost: number = 0;
   currentDate = new Date();
+  commentValue: string = '';
   
   constructor(
     private elementRef: ElementRef,
@@ -131,6 +133,62 @@ export class ListAllPostsComponent implements OnInit {
   updatePost() {
     this.postService.updatePost(this.formUpdate.value).subscribe(data => {
       window.location.reload();
+    })
+  }
+
+  scrollToComment(index: number) {
+    const commentId = `comment-${index}`;
+    const commentElement = document.getElementById(commentId);
+
+    if (commentElement) {
+
+      const commentInputPosition = commentElement.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: commentInputPosition, behavior: 'smooth' });
+      const commentPosition = commentElement.getBoundingClientRect().top;
+      const scrollPosition = commentInputPosition - commentPosition;
+      window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+      commentElement.focus();
+      this.showButton = true;
+    }
+  }
+
+  createComment(){
+    var comment = this.commentValue;
+    console.log(comment);
+    // var postDTO = new PostDTO(message,  this.postImage);
+    // this.postService.createPost(postDTO).subscribe(data => {
+      window.location.reload();
+    // })
+  }
+
+  updateComment(){
+    //arrumar
+    this.postService.updateComment(this.formUpdate.value).subscribe(data => {
+      window.location.reload();
+    })
+  }
+
+  deleteComment(){
+    //arrumar
+    this.postService.deleteComment(this.formDelete.value.id).subscribe((data: any) =>{
+      window.location.reload();
+    })
+  }
+
+  hideButton() {
+    setTimeout(() => this.commentValue = '', 200);
+    setTimeout(() => this.showButton = false, 200);
+  }
+
+  createLike(id:any){
+    this.postService.createLike(id).subscribe((data: any) =>{
+      this.ngOnInit();
+    })
+  }
+
+  removeLike(id:any){
+    this.postService.removeLike(id).subscribe((data: any) =>{
+      this.ngOnInit();
     })
   }
 

@@ -4,17 +4,16 @@ import { PostRepository } from 'src/app/data/repositories/post.repository';
 import { Post } from '../models/postModel';
 import { PostDTO } from '../models/Dtos/PostDTO';
 import { UpdatePostDTO } from '../models/Dtos/UpdatePostDTO';
+import { CommentPostDTO } from '../models/Dtos/CommentPostDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  apiUrl = 'https://localhost:5001/api'
-
   httpOptions = {
     Headers: new HttpHeaders({
-      'Contet-Type': 'application/json'
+      'Content-Type': 'application/json'
     })
   };
 
@@ -49,5 +48,17 @@ export class PostService {
 
   removeLike(id:number) {
     return this.postRepository.removeLike(id);
+  }
+
+  commentPost(commentPost: CommentPostDTO) {
+    return this.postRepository.commentPost(commentPost);
+  }
+
+  updateComment(updateComment: UpdatePostDTO) {
+    return this.postRepository.updateComment(updateComment);
+  }
+
+  deleteComment(id:number) {
+    return this.postRepository.deleteComment(id);
   }
 }
