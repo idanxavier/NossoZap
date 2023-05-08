@@ -25,9 +25,6 @@ namespace Service.Implementation
             if (post == null) throw new ArgumentException("Post doesn't exists.");
 
             var currentUser = await _authService.GetCurrentUser();
-            var findComment = await _commentRepository.GetCommentByUserIdAndPostId(currentUser.Id, post.id);
-
-            if (findComment != null) throw new ArgumentException("You already commentd this post.");
 
             var newComment = new Comment
             {
