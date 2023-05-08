@@ -85,7 +85,9 @@ namespace Service.Implementation
             foreach (var post in posts)
             {
                 post.likes = await _postRepository.ListLikesByPostId(post.id);
+                post.comments = await _postRepository.LikesCommentsByPostId(post.id);
             }
+
             return posts;
         }
     }

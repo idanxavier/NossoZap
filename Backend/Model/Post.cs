@@ -17,5 +17,6 @@ namespace Model
         public Byte[]? photo { get; set; }
         public List<Like> likes { get; set; }   
         public DateTime date { get; set; }
+        public List<Comment> comments { get; set; }
     }
 }

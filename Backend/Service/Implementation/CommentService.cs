@@ -30,7 +30,8 @@ namespace Service.Implementation
             {
                 postId = comment.postId,
                 userId = currentUser.Id,
-                date = DateTime.Now
+                date = DateTime.Now,
+                userName = currentUser.UserName
         };
 
             return await _commentRepository.CreateAsync(newComment);

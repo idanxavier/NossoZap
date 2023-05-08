@@ -29,5 +29,10 @@ namespace Infrastructure.Repositories
         {
             return await _context.Like.Where(x => x.postId == postId).ToListAsync();
         }
+
+        public async Task<List<Comment>> LikesCommentsByPostId(int postId)
+        {
+            return await _context.Comment.Where(x => x.postId == postId).ToListAsync();
+        }
     }
 }

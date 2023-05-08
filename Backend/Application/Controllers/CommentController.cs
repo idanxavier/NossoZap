@@ -54,18 +54,5 @@ namespace Application.Controllers
                 return BadRequest(error.Message);
             }
         }
-
-        [HttpGet("list-comments-by-post-id")]
-        public async Task<IActionResult> CommentsCommentsByPostId(int postId)
-        {
-            try
-            {
-                return Ok(await _commentService.ListCommentsByPostId(postId));
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
     }
 }
