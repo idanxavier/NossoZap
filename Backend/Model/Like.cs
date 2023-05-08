@@ -11,7 +11,7 @@ namespace Model
     {
         [Key]
         public int id { get; set; }
-        public int publicationId { get; set; }
+        public int postId { get; set; }
         public string userId { get; set; }
     }
 }
