@@ -15,14 +15,12 @@ namespace Service.Implementation
         private readonly PostRepository _postRepository;
         private readonly IAuthService _authService;
         private readonly IFriendService _friendService;
-        private readonly ILikeService _likeService;
 
-        public PostService(PostRepository postRepository, IAuthService authService, IFriendService friendService, ILikeService likeService)
+        public PostService(PostRepository postRepository, IAuthService authService, IFriendService friendService)
         { 
             _postRepository = postRepository;
             _authService = authService;
             _friendService = friendService;
-            _likeService = likeService;
         }
 
         public async Task<Post> CreatePost(PostDTO post)
@@ -86,7 +84,7 @@ namespace Service.Implementation
             var posts = await _postRepository.ListPostsByFriends(friends, currentUser.Id);
             foreach (var post in posts)
             {
-                post.likes = await _likeService.ListLikesBypostId(post.id);
+                post.likes = await _postRepository.ListLikesByPostId(post.id);
             }
             return posts;
         }
