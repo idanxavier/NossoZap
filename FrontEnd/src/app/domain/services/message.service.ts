@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageRepository } from 'src/app/data/repositories/message.repository';
+import { MessageDTO } from '../models/Dtos/MessageDTO';
 
 
 @Injectable({
@@ -15,35 +16,25 @@ export class MessageService {
     private messageRepository: MessageRepository
   ) { }
 
-  SendMessage(formMsg: any) {
-    return this.messageRepository.SendMessage(formMsg);
+  
+  GetMessage(id: number) {
+    return this.messageRepository.GetMessage(id);
   }
 
-  ListMySendMessages() {
-    return this.messageRepository.ListMySendMessages();
-  }
-
-  ListMyReceivedMessages() {
-    return this.messageRepository.ListMyReceivedMessages();
+  DeleteMessage(id: number) {
+    return this.messageRepository.DeleteMessage(id);
   }
 
   ListAllMessagesBetweenCurrentUserAndUserId(userId: any) {
     return this.messageRepository.ListAllMessagesBetweenCurrentUserAndUserId(userId);
   }
 
+  SendMessage(message: MessageDTO) {
+    return this.messageRepository.CreateMessage(message);
+  }
+
   ListMyChats() {
     return this.messageRepository.ListMyChats();
   }
 
-  GetMessage(id: number) {
-    return this.messageRepository.GetMessage(id);
-  }
-
-  ReadMessage(id: number) {
-    return this.messageRepository.ReadMessage(id);
-  }
-
-  DeleteMessage(id: number) {
-    return this.messageRepository.DeleteMessage(id);
-  }
 }

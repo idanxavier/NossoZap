@@ -1,13 +1,10 @@
-export class CommentPostDTO {
+export class LikeDTO {
     postId: number = 0;
-    message: string = "";
 
     constructor(
         postId: number,
-        message: string,
     ) {
         this.postId = postId
-        this.message = message
     }
   }
   
