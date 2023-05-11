@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
+import { MessageDTO } from 'src/app/domain/models/Dtos/MessageDTO';
 import { User } from 'src/app/domain/models/userModel';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
+import { MessageService } from 'src/app/domain/services/message.service';
 
 @Component({
   selector: 'app-chat',
@@ -11,19 +14,20 @@ import { AuthenticationService } from 'src/app/domain/services/authentication.se
 })
 export class ChatComponent implements OnInit {
 
-  // friends: friendDTO[] = [];
+  friends: friendDTO[] = [];
   readMessageId: string = "";
   currentUser: User;
   users: User[] = [];
-  // messages: MessageDTO[] = [];
+  messages: MessageDTO[] = [];
   currentFriendId: string = "";
   currentFriendUsername: string = "";
   formMsg: FormGroup;
+  messagesBetweenUsers: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
-    // private messageService: MessageService,
+    private messageService: MessageService,
     private formBuilder : FormBuilder,
   )
   {
@@ -45,15 +49,15 @@ export class ChatComponent implements OnInit {
   }
 
   ListAllMessages(userId: any){
-    // this.messageService.ListAllMessagesBetweenCurrentUserAndUserId(userId).subscribe((data : any) => {
-    //   this.messages = data;
-    // })
+    this.messageService.ListAllMessagesBetweenCurrentUserAndUserId(userId).subscribe((data : any) => {
+      this.messages = data;
+    })
   }
 
   onSubmit() {
-    // this.messageService.SendMessage(this.formMsg.value).subscribe(data => {
-    //   window.location.reload();
-    // })
+    this.messageService.SendMessage(this.formMsg.value).subscribe(data => {
+      window.location.reload();
+    })
   }
 
 }

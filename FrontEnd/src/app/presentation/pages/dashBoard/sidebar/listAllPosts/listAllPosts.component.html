@@ -52,15 +52,15 @@
           
           <img [src]=getSafeUrl(post.photo) class="imgBorder img-fluid" style="width: 100%;">
         </div>
-        <div class="col-12 mt-2" *ngIf="post.likes > 0">
-          <i class="bi bi-hand-thumbs-up-fill pe-2" style="color: blue"></i>{{post.likes}}
+        <div class="col-12 mt-2" *ngIf="post.likes.length > 0">
+          <i class="bi bi-hand-thumbs-up-fill pe-2" style="color: blue"></i>{{post.likes.length}}
         </div>
       </div>
   
       <div class="row line">
         <div class="col-6 alignCenter">
-          <button type="button" class="btn btn-light sizeBtn" style="color: rgb(55, 0, 255)" *ngIf="post.alreadyLiked == true" (click)="createLike(post.id)">Curtir<i class="bi bi-hand-thumbs-up-fill ms-2" style="color: rgb(55, 0, 255)"></i></button>
-          <button type="button" class="btn btn-light sizeBtn" style="color: rgb(255, 0, 0)" *ngIf="post.alreadyLiked == false" (click)="removeLike(post.id)">Descurtir<i class="bi bi-hand-thumbs-down-fill ms-2" style="color: rgb(255, 0, 0)"></i></button>
+          <button type="button" class="btn btn-light sizeBtn" style="color: rgb(55, 0, 255)" *ngIf="!getUserLikeInPost(post)" (click)="createLike(post.id)">Curtir<i class="bi bi-hand-thumbs-up-fill ms-2" style="color: rgb(55, 0, 255)"></i></button>
+          <button type="button" class="btn btn-light sizeBtn" style="color: rgb(255, 0, 0)" *ngIf="getUserLikeInPost(post)" (click)="deleteLike(post.id)">Descurtir<i class="bi bi-hand-thumbs-down-fill ms-2" style="color: rgb(255, 0, 0)"></i></button>
         </div>
         <div class="col-6 alignCenter mt-2">
           <button type="button" class="btn btn-light sizeBtn" (click)="scrollToComment(i)">
@@ -69,29 +69,25 @@
         </div>
       </div>
 
-      <div class="row styleOfComment bgComment">
-        <div class="col-1 alignCenter">
-          <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
+      <div *ngIf="post.comments">
+        <div *ngFor="let comment of post.comments">
+          <div class="row styleOfComment bgComment">
+            <div class="col-1 alignCenter">
+              <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
+            </div>
+            <div class="col-10">
+              <span class="title">Matheus Cerqueira</span>
+              <br>
+              <span>{{comment.message}}</span>
+              <br>
+              <span class="subtitle">{{timeDifference(comment.date)}}</span>
+            </div>
+            <div  class="col-1 alignCenter">
+              <a class="mx-3" style="color: red"  (click)="deleteComment(comment.id)"><i class="bi bi-trash3-fill"></i></a>
+            </div>
+          </div>
         </div>
-        <div class="col-11">
-          <span class="title">Matheus Cerqueira</span>
-          <br>
-          <span>Salveeeeeeeeeee</span>
-          <br>
-          <span class="subtitle">{{timeDifference(post.date)}}</span>
-        </div>
-      </div>
-      <div class="row styleOfComment bgComment">
-        <div class="col-1 alignCenter">
-          <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="img rounded-circle icon" />
-        </div>
-        <div class="col-11">
-          <span class="title">Matheus Cerqueira</span>
-          <br>
-          <span>Salveeeeeeeeeee</span>
-          <br>
-          <span class="subtitle">{{timeDifference(post.date)}}</span>
-        </div>
+
       </div>
 
       <div class="row mt-2">
@@ -100,7 +96,7 @@
         </div>
         <div class="col-11 input-with-icon" >
           <input #commentInput type="text" id="comment-{{i}}" class="form-control newPost" [(ngModel)]="commentValue" (click)="showButton = true" (blur)="hideButton()" id="comment" aria-describedby="comment" placeholder="Escreva um comentário..." autocomplete="off">
-          <a style="cursor: pointer;" (click)="createComment()"><i class="bi bi-send" *ngIf="showButton"></i></a>
+          <a style="cursor: pointer;" (click)="createComment(post.id)"><i class="bi bi-send" *ngIf="showButton"></i></a>
         </div>
       </div>
     </div>

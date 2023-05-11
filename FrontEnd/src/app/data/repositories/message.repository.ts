@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { MessageDTO } from "src/app/domain/models/Dtos/MessageDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -9,16 +10,16 @@ export class MessageRepository {
 
     constructor(private httpClient: HttpClient) { }
 
-    CreateMessage(formMsg: any) {
-        return this.httpClient.post(`${environment.apiUrl}` + '/message/create-message', formMsg);
+    CreateMessage(message: MessageDTO) {
+        return this.httpClient.post(`${environment.apiUrl}` + '/message/create-message', message);
     }
 
-    ListMySendMessages() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-send-messages');
+    DeleteMessage(id: number) {
+        return this.httpClient.delete(`${environment.apiUrl}` + '/message/delete-message?messageId=' + id);
     }
 
-    ListMyReceivedMessages() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-received-messages');
+    GetMessage(id: number) {
+        return this.httpClient.get(`${environment.apiUrl}` + '/message/get-message?messageId=' + id);
     }
 
     ListAllMessagesBetweenCurrentUserAndUserId(userId: any) {
@@ -29,15 +30,4 @@ export class MessageRepository {
         return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-chats');
     }
 
-    GetMessage(id: number) {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/get-message?messageId=' + id);
-    }
-
-    ReadMessage(id: number) {
-        return this.httpClient.put(`${environment.apiUrl}` + '/message/read-message', id);
-    }
-
-    DeleteMessage(id: number) {
-        return this.httpClient.delete(`${environment.apiUrl}` + '/message/delete-message?messageId=' + id);
-    }
 }

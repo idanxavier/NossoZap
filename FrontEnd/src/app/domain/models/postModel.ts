@@ -1,10 +1,13 @@
+import { CommentModel } from "./commentModel";
+import { LikeModel } from "./likeModel";
+
 export class Post {
   id: number = 0;
   message: string = "";
   date: string = "";
-  likes: number = 0;
+  comments: CommentModel[] = [];
   photo: string = "";
   applicationUserId: string = "";
   username: string = "";
-  alreadyLiked: boolean = false;
+  likes: LikeModel[] = [];
 }
