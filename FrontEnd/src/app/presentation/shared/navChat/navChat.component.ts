@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
   selector: 'app-navChat',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavChatComponent implements OnInit {
 
-  constructor() { }
+  currentFriendUsername: string = "";
+
+  constructor(
+    private route: ActivatedRoute,
+  ) { 
+    this.route.queryParams.subscribe(params =>{
+      this.currentFriendUsername = params['username'];
+    })
+  }
+
 
   ngOnInit() {
   }

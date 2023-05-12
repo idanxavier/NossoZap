@@ -1,5 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { MessageDTO } from "src/app/domain/models/Dtos/MessageDTO";
+import { SendMessageDTO } from "src/app/domain/models/Dtos/sendMessageDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -9,35 +11,24 @@ export class MessageRepository {
 
     constructor(private httpClient: HttpClient) { }
 
-    CreateMessage(formMsg: any) {
-        return this.httpClient.post(`${environment.apiUrl}` + '/message/create-message', formMsg);
+    CreateMessage(message: SendMessageDTO) {
+        return this.httpClient.post(`${environment.apiUrl}` + '/message/create-message', message);
     }
 
-    ListMySendMessages() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-send-messages');
-    }
-
-    ListMyReceivedMessages() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-received-messages');
-    }
-
-    ListAllMessagesBetweenCurrentUserAndUserId(userId: any) {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-messages-with-user?username' + userId);
-    }
-
-    ListMyChats() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-my-chats');
+    DeleteMessage(id: number) {
+        return this.httpClient.delete(`${environment.apiUrl}` + '/message/delete-message?messageId=' + id);
     }
 
     GetMessage(id: number) {
         return this.httpClient.get(`${environment.apiUrl}` + '/message/get-message?messageId=' + id);
     }
 
-    ReadMessage(id: number) {
-        return this.httpClient.put(`${environment.apiUrl}` + '/message/read-message', id);
+    ListAllMessagesWithUser(username: string) {
+        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-messages-with-user?username=' + username);
     }
 
-    DeleteMessage(id: number) {
-        return this.httpClient.delete(`${environment.apiUrl}` + '/message/delete-message?messageId=' + id);
+    ListMyChats() {
+        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-last-received-messages');
     }
+
 }

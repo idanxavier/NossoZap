@@ -9,6 +9,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PostDTO } from 'src/app/domain/models/Dtos/PostDTO';
 import { DatePipe } from '@angular/common';
 import { UpdatePostDTO } from 'src/app/domain/models/Dtos/UpdatePostDTO';
+import { LikeDTO } from 'src/app/domain/models/LikeDTO';
+import { LikeModel } from 'src/app/domain/models/likeModel';
+import { CommentPostDTO } from 'src/app/domain/models/Dtos/CommentPostDTO';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -152,25 +155,16 @@ export class ListAllPostsComponent implements OnInit {
     }
   }
 
-  createComment(){
+  createComment(postId:number){
     var comment = this.commentValue;
-    console.log(comment);
-    // var postDTO = new PostDTO(message,  this.postImage);
-    // this.postService.createPost(postDTO).subscribe(data => {
-      window.location.reload();
-    // })
-  }
-
-  updateComment(){
-    //arrumar
-    this.postService.updateComment(this.formUpdate.value).subscribe(data => {
+    var commentPostDTO = new CommentPostDTO(postId, comment);
+    this.postService.createComment(commentPostDTO).subscribe((data:any) => {
       window.location.reload();
     })
   }
 
-  deleteComment(){
-    //arrumar
-    this.postService.deleteComment(this.formDelete.value.id).subscribe((data: any) =>{
+  deleteComment(postId:number){
+    this.postService.deleteComment(postId).subscribe((data: any) =>{
       window.location.reload();
     })
   }
@@ -180,14 +174,25 @@ export class ListAllPostsComponent implements OnInit {
     setTimeout(() => this.showButton = false, 200);
   }
 
-  createLike(id:any){
-    this.postService.createLike(id).subscribe((data: any) =>{
+  createLike(postId:number){
+    let newLike = new LikeDTO(postId);
+    this.postService.createLike(newLike).subscribe((data: any) =>{
       this.ngOnInit();
     })
   }
 
-  removeLike(id:any){
-    this.postService.removeLike(id).subscribe((data: any) =>{
+  getUserLikeInPost(post:Post){
+    for(let like of post.likes){
+      if(like.userId == this.currentUser.id){
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  deleteLike(id:any){
+    this.postService.deleteLike(id).subscribe((data: any) =>{
       this.ngOnInit();
     })
   }

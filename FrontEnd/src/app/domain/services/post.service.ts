@@ -5,6 +5,7 @@ import { Post } from '../models/postModel';
 import { PostDTO } from '../models/Dtos/PostDTO';
 import { UpdatePostDTO } from '../models/Dtos/UpdatePostDTO';
 import { CommentPostDTO } from '../models/Dtos/CommentPostDTO';
+import { LikeDTO } from '../models/LikeDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -42,21 +43,18 @@ export class PostService {
     return this.postRepository.updatePost(updatePost);
   }
 
-  createLike(id:number) {
-    return this.postRepository.createLike(id);
+  createLike(likeDto:LikeDTO) {
+    return this.postRepository.createLike(likeDto);
   }
 
-  removeLike(id:number) {
-    return this.postRepository.removeLike(id);
+  deleteLike(id:number) {
+    return this.postRepository.deleteLike(id);
   }
 
-  commentPost(commentPost: CommentPostDTO) {
+  createComment(commentPost: CommentPostDTO) {
     return this.postRepository.commentPost(commentPost);
   }
 
-  updateComment(updateComment: UpdatePostDTO) {
-    return this.postRepository.updateComment(updateComment);
-  }
 
   deleteComment(id:number) {
     return this.postRepository.deleteComment(id);

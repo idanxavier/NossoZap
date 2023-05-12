@@ -1,8 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommentPostDTO } from "src/app/domain/models/Dtos/CommentPostDTO";
+
 import { PostDTO } from "src/app/domain/models/Dtos/PostDTO";
 import { UpdatePostDTO } from "src/app/domain/models/Dtos/UpdatePostDTO";
+import { LikeDTO } from "src/app/domain/models/LikeDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -34,22 +36,22 @@ export class PostRepository {
   }
 
   commentPost(commentPost: CommentPostDTO) {
-    return this.httpClient.post(`${environment.apiUrl}` + '/Post/comment-post', commentPost);
+    return this.httpClient.post(`${environment.apiUrl}` + '/Comment/create-comment', commentPost);
   }
 
   updateComment(updateComment: UpdatePostDTO) {
     return this.httpClient.post(`${environment.apiUrl}` + '/Post/update-comment', updateComment);
   }
-
+  
   deleteComment(id:number) {
-    return this.httpClient.delete(`${environment.apiUrl}` + '/Post/remove-comment?commentId=' + id );
+    return this.httpClient.delete(`${environment.apiUrl}` + '/Comment/remove-comment?commentId=' + id );
   }
 
-  createLike(id:number) {
-    return this.httpClient.post(`${environment.apiUrl}` + '/Like/create-like', id);
+  createLike(likeDto:LikeDTO) {
+    return this.httpClient.post(`${environment.apiUrl}` + '/Like/create-like', likeDto);
   }
 
-  removeLike(id:number) {
-    return this.httpClient.delete(`${environment.apiUrl}` + '/Like/remove-like', {body: id});
+  deleteLike(id:number) {
+    return this.httpClient.delete(`${environment.apiUrl}` + '/Like/remove-like?postId=' + id );
   }
 }
