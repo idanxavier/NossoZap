@@ -15,5 +15,6 @@ namespace Model
         public string userId { get; set; }
         public string friendId { get; set; }
         public string friendName { get; set; }
+        public string username { get; set; }
     }
 }

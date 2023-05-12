@@ -46,7 +46,8 @@ namespace Service.Implementation
                 addedAt = DateTime.Now,
                 friendId = friendUser.Id,
                 userId = currentUser.Id,
-                friendName = friendUser.UserName
+                friendName = friendUser.UserName,
+                username = currentUser.UserName
             };
 
             return await _friendRepository.CreateAsync(friend) != null;
@@ -78,14 +79,21 @@ namespace Service.Implementation
             List<Friend> friends = await _friendRepository.ListFriendsByUserId(currentUser.Id);
             List<FriendDTO> friendsDTO = new List<FriendDTO>();
 
+            var dto = new FriendDTO();
+
             foreach(Friend friend in friends)
             {
-                var dto = new FriendDTO
+                if(friend.friendId == currentUser.Id)
                 {
-                    id = friend.friendId,
-                    addedAt = friend.addedAt,
-                    username = friend.friendName
-                };
+                    dto.id = friend.userId;
+                    dto.addedAt = friend.addedAt;
+                    dto.username = friend.username;
+                } else
+                {
+                    dto.id = friend.friendId;
+                    dto.addedAt = friend.addedAt;
+                    dto.username = friend.friendName;
+                }
 
                 friendsDTO.Add(dto);
             }
