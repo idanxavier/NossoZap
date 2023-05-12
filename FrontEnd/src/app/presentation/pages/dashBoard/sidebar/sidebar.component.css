@@ -130,7 +130,12 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
-  
+ 
+.friendname {
+    text-decoration: none;
+    color: black;
+}
+
 .friendList-content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -194,3 +199,4 @@ a:hover{
     width: 100%;
     font-size: 18px;
 }
+

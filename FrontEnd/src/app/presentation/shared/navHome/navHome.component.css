@@ -24,3 +24,8 @@
   .btnSpacing {
     margin-right: 15px;
   }
+
+.bi {
+    text-decoration: none;
+    color: black;
+}

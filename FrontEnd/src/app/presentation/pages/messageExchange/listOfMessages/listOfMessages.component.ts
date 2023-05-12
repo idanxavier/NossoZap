@@ -46,7 +46,6 @@ export class ListOfMessagesComponent implements OnInit {
 
   ListMyChats() {
     return this.messageService.ListMyChats().subscribe((data : any) => {
-      console.log(data);
       this.chats = data;
       }
   )}

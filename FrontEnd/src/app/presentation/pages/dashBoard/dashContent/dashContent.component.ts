@@ -22,7 +22,7 @@ class ImageSnippet {
 })
 export class DashContentComponent implements OnInit {
 
-  @ViewChild('commentInput') commentInputRef!: ElementRef;
+  // @ViewChild('commentInput') commentInputRef!: ElementRef;
   deletePostId : number = 0;
   users: User[] = [];
   posts: Post[] = [];
@@ -75,6 +75,9 @@ export class DashContentComponent implements OnInit {
   listPosts(){
     this.postService.listPosts().subscribe((data : any) => {
       this.posts = data;
+      this.posts.forEach(post => {
+        post.url = this.getSafeUrl(post.photo);
+      });
     })
   }
 
@@ -85,7 +88,6 @@ export class DashContentComponent implements OnInit {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    const formattedTime = this.datePipe.transform(createdAtDate, 'short');
 
     if (days > 0) {
       return `${days} dias atrás `;
@@ -153,9 +155,14 @@ export class DashContentComponent implements OnInit {
     }
   }
 
-  createComment(postId:number){
-    var comment = this.commentValue;
-    var commentPostDTO = new CommentPostDTO(postId, comment);
+  createComment(postId:number, id: number){
+
+    var comment: HTMLInputElement | null = document.getElementById(`comment-${id}`) as HTMLInputElement | null;
+    
+    if(comment == null || comment.value == "")
+      return;
+      
+    var commentPostDTO = new CommentPostDTO(postId, comment.value);
     this.postService.createComment(commentPostDTO).subscribe((data:any) => {
       window.location.reload();
     })
@@ -198,6 +205,8 @@ export class DashContentComponent implements OnInit {
   openModalNewPost() {
     const modal = this.elementRef.nativeElement.querySelector('.createPost');
     modal.style.display = 'block';
+    const newPostInput = document.getElementById("newPostInput");
+    newPostInput?.focus();
   }
 
   closeModalNewPost() {

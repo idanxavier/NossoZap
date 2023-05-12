@@ -93,3 +93,8 @@
     display: flex;
     justify-content: end;
   }
+
+  .bi {
+    text-decoration: none;
+    color: black;
+}

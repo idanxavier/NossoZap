@@ -65,7 +65,7 @@
                   <div *ngFor="let friend of friends" class="alignCenter">
                     <a class="pointer mt-3" (click)="goToChatWithFriend(friend.username)">
                       <div class="d-flex justify-content-between ">
-                          <span class="text-center pe-1">{{friend.username}}</span>
+                          <span class="text-center pe-1 friendname">{{friend.username}}</span>
                           <i class="bi bi-send-plus"></i>
                       </div>
                     </a>

@@ -1,3 +1,4 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
 import { CommentModel } from "./commentModel";
 import { LikeModel } from "./likeModel";
 
@@ -10,4 +11,5 @@ export class Post {
   applicationUserId: string = "";
   username: string = "";
   likes: LikeModel[] = [];
+  url:  SafeResourceUrl = "";
 }

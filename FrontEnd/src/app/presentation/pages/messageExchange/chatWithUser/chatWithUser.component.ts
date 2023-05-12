@@ -38,7 +38,6 @@ export class ChatWithUserComponent implements OnInit {
       this.currentFriendUsername = params['username'];
     })
     
-    console.log(this.currentFriendUsername);
     this.formMsg = this.formBuilder.group({
       toUsername: [this.currentFriendUsername],
       text: [null]
@@ -48,6 +47,8 @@ export class ChatWithUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.currentFriendUsername == undefined)
+        return
     this.ListAllMessages(this.currentFriendUsername);
 
   }
