@@ -2,26 +2,24 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ChatDTO } from 'src/app/domain/models/Dtos/ChatDTO';
 import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
-import { MessageDTO } from 'src/app/domain/models/Dtos/MessageDTO';
-import { SendMessageDTO } from 'src/app/domain/models/Dtos/sendMessageDTO';
 import { Message } from 'src/app/domain/models/messageModel';
 import { User } from 'src/app/domain/models/userModel';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FriendService } from 'src/app/domain/services/friend.service';
 import { MessageService } from 'src/app/domain/services/message.service';
-
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  selector: 'app-listOfMessages',
+  templateUrl: './listOfMessages.component.html',
+  styleUrls: ['./listOfMessages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class ListOfMessagesComponent implements OnInit {
 
   chats: ChatDTO[] = [];
   friends: friendDTO[] = [];
   messages: Message[] = [];
   currentFriendUsername: string = "";
   currentUser : User;
+  dateOfMessage: Date;
   
   constructor(
     private elementRef: ElementRef,
@@ -36,6 +34,8 @@ export class MessagesComponent implements OnInit {
     })
 
     this.currentUser = this.authenticationService.currentUserValue;
+
+      this.dateOfMessage = new Date();
    }
 
   

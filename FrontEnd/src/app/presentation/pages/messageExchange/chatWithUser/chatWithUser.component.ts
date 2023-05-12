@@ -2,19 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
-import { MessageDTO } from 'src/app/domain/models/Dtos/MessageDTO';
-import { SendMessageDTO } from 'src/app/domain/models/Dtos/sendMessageDTO';
 import { Message } from 'src/app/domain/models/messageModel';
 import { User } from 'src/app/domain/models/userModel';
 import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { MessageService } from 'src/app/domain/services/message.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-chatWithUser',
+  templateUrl: './chatWithUser.component.html',
+  styleUrls: ['./chatWithUser.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatWithUserComponent implements OnInit {
 
   friends: friendDTO[] = [];
   readMessageId: string = "";
@@ -26,6 +24,7 @@ export class ChatComponent implements OnInit {
   messagesBetweenUsers: boolean = false;
 
   messages: Message[] = [];
+  dateOfMessage: Date;
   
   constructor(
     private authenticationService: AuthenticationService,
@@ -44,6 +43,8 @@ export class ChatComponent implements OnInit {
       toUsername: [this.currentFriendUsername],
       text: [null]
     });
+
+    this.dateOfMessage = new Date();
   }
 
   ngOnInit(): void {

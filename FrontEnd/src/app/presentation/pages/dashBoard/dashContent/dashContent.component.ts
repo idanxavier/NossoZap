@@ -8,9 +8,7 @@ import { PostService } from 'src/app/domain/services/post.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostDTO } from 'src/app/domain/models/Dtos/PostDTO';
 import { DatePipe } from '@angular/common';
-import { UpdatePostDTO } from 'src/app/domain/models/Dtos/UpdatePostDTO';
 import { LikeDTO } from 'src/app/domain/models/LikeDTO';
-import { LikeModel } from 'src/app/domain/models/likeModel';
 import { CommentPostDTO } from 'src/app/domain/models/Dtos/CommentPostDTO';
 
 class ImageSnippet {
@@ -18,11 +16,11 @@ class ImageSnippet {
 }
 
 @Component({
-  selector: 'app-listAllPosts',
-  templateUrl: './listAllPosts.component.html',
-  styleUrls: ['./listAllPosts.component.css']
+  selector: 'app-dashContent',
+  templateUrl: './dashContent.component.html',
+  styleUrls: ['./dashContent.component.css']
 })
-export class ListAllPostsComponent implements OnInit {
+export class DashContentComponent implements OnInit {
 
   @ViewChild('commentInput') commentInputRef!: ElementRef;
   deletePostId : number = 0;

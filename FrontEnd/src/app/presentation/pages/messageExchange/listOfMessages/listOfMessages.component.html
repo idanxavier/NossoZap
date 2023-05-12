@@ -2,10 +2,11 @@
   <div class="container-fluid">
     <div style="display: flex;justify-content: start; align-items: center;">
       <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png"  class="img rounded-circle "/>
-      {{currentUser.userName}}
+       <span class="ps-3 subtitle">{{currentUser.userName}}</span>
     </div>
     <div class="btnNav">
-      <a (click)="openModalFriendList()"><i class="bi bi-send-plus-fill"></i></a>
+      <a class="pointer pe-4" [routerLink]="'/dashboard'"><i class="bi bi-house-door-fill"></i></a>
+      <a class="pointer" (click)="openModalFriendList()"><i class="bi bi-send-plus-fill"></i></a>
     </div>
   </div>
 </nav>
@@ -18,15 +19,15 @@
 <div class="container-fluid" *ngIf="chats">
   <div class="messages" *ngFor="let chat of chats">
     <div class="row mt" (click)="goToChatWithFriend(chat.username)">
-      <div class="col-2">
+      <div class="col-2 alignImg">
         <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png"  class="img rounded-circle "/>
       </div>
       <div class="col-10">
         <div class="row styleOfPeopleSendedMessage">
-          <div class="col-10">{{chat.username}}</div>
-          <div class="col-2 alignTime"><span class="timeMessage">{{chat.date}}</span></div>
+          <div class="col-8">{{chat.username}}</div>
+          <div class="col-4 alignTime"><span class="timeMessage">{{chat.date | date: "short" }}</span></div>
         </div>
-        <div class="row">
+        <div class="row pb-2">
           <span class="alignMessage">{{chat.lastMessage}}</span>
         </div>
       </div>
@@ -49,28 +50,28 @@
   <div class="friendList-content modal-content">
     <div class="row">
       <div class="col-12">
-        <span class="close title alignIconExit" (click)="closeModalFriendList()">&times;</span>
         <div class="card-title title">
-           Lista de amigos
+          Lista de amigos
           <i class="bi bi-people-fill icon"></i>
+          <span class="close" (click)="closeModalFriendList()">&times;</span>
         </div>
         <div class="row card-body">
           <div class="col-lg-12 card">
-              <table class="table table-striped table-responsive">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col" class="text-center">Nome do usuario</th>
-                  </tr>
-                </thead>
-                <tbody *ngIf="friends">
-                  <tr *ngFor="let friend of friends" class="alignCenter">
-                    <td class="d-flex justify-content-between">
-                        <a (click)="openChat(friend.username)"><span class="text-center pe-5">{{friend.username}}</span>
-                        <i class="bi bi-send-plus"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="">
+                <div class="subtitle text-center">
+                    Nome do usuario
+                </div>
+                <div *ngIf="friends">
+                  <div *ngFor="let friend of friends" class="alignCenter">
+                    <a class="pointer mt-3" (click)="goToChatWithFriend(friend.username)">
+                      <div class="d-flex justify-content-between ">
+                          <span class="text-center pe-1">{{friend.username}}</span>
+                          <i class="bi bi-send-plus"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
       </div>

@@ -1,25 +1,13 @@
-.bgPage {
-  background: linear-gradient( to top, white 0%, white 84%, #00a884 13%, #00a884 100% );
-  width: 100%;
-  }
-  
-.bgMessage{
-  z-index: 999;
-  background-color: #f0f2f5;
-  margin: 20px;
-  height: 97%;
-  border: 1px solid #a5a5a5;
+.sidebar {
+  padding: 0px;
+  height: 100%;
+  position: sticky;
+  top: 146px;
+  z-index: 1;
+  border-right: 1px solid;
 }
-  
-.alignBgMessage{
-  display: flex;
-  justify-content: center;
-  height: 90vh;
+
+.bg{
+  background-color: #eaeaea;
+
 }
-  
-.divisor{
-  border-right: 1px solid #a5a5a5;
-}
-    
-    
-    

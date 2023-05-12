@@ -32,7 +32,10 @@
 }
 
 .mt {
-    margin-top: 14px;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .styleOfPeopleSendedMessage{
@@ -45,17 +48,29 @@
 .alignTime{
     display: flex;
     justify-content: center;
+    
 }
 
 .timeMessage{
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
+    margin-top: 25px;
 }
 
 .alignMessage{
     display: flex;
     align-items: center;
     justify-content: start;
+}
+
+.pointer{
+    cursor: pointer;;
+}
+
+.alignImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .friendList {
@@ -90,10 +105,24 @@
     margin-top: 5px;
 }
 
-.alignIconExit {
-    display: flex;
-    justify-content: end;
-    padding-right: 17px;
+.subtitle{
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .notChats{
