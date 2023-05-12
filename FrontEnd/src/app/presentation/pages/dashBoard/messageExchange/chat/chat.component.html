@@ -1,4 +1,4 @@
-<div *ngIf="messages.length <= 0">
+<div *ngIf="currentFriendUsername == undefined">
   <div class="container-fluid notMessagesBetweenUsers">
     <div class="row">
       <div class="col-12">
@@ -12,7 +12,7 @@
 </div>
 
 
-<div *ngIf="messages.length > 0">
+<div *ngIf="messages.length >= 0 && currentFriendUsername != undefined">
 <app-navChat></app-navChat>
 <div class="container-fluid">
   <div class="row card-body">

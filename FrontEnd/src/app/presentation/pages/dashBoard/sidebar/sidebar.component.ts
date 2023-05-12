@@ -109,6 +109,15 @@ export class SidebarComponent implements OnInit {
     window.location.reload();
   }
 
+  goToChatWithFriend(username: string){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(
+      ['/messageExchange'],
+      { queryParams: { username: username} }
+    );
+  }
+  
   ngOnInit() {
     this.ListFriends();
     this.ListRequestsPendents();

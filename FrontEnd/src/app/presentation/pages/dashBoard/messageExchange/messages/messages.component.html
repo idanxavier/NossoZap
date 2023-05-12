@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <div style="display: flex;justify-content: start; align-items: center;">
       <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png"  class="img rounded-circle "/>
+      {{currentUser.userName}}
     </div>
     <div class="btnNav">
       <a (click)="openModalFriendList()"><i class="bi bi-send-plus-fill"></i></a>
@@ -9,15 +10,14 @@
   </div>
 </nav>
 
-
 <div class="divBusca">
   <i class="bi bi-search ps-3 pe-3 "></i>
   <input type="text" class="txtBusca" placeholder="Buscar..."/>
 </div>
 
-<div class="container-fluid"  *ngIf="chats">
+<div class="container-fluid" *ngIf="chats">
   <div class="messages" *ngFor="let chat of chats">
-    <div class="row mt">
+    <div class="row mt" (click)="goToChatWithFriend(chat.username)">
       <div class="col-2">
         <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png"  class="img rounded-circle "/>
       </div>

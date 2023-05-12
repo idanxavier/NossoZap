@@ -28,7 +28,7 @@ export class MessageRepository {
     }
 
     ListMyChats() {
-        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-last-received-messages');
+        return this.httpClient.get(`${environment.apiUrl}` + '/message/list-last-messages');
     }
 
 }

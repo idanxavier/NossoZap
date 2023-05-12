@@ -5,6 +5,8 @@ import { friendDTO } from 'src/app/domain/models/Dtos/FriendDTO';
 import { MessageDTO } from 'src/app/domain/models/Dtos/MessageDTO';
 import { SendMessageDTO } from 'src/app/domain/models/Dtos/sendMessageDTO';
 import { Message } from 'src/app/domain/models/messageModel';
+import { User } from 'src/app/domain/models/userModel';
+import { AuthenticationService } from 'src/app/domain/services/authentication.service';
 import { FriendService } from 'src/app/domain/services/friend.service';
 import { MessageService } from 'src/app/domain/services/message.service';
 
@@ -19,17 +21,21 @@ export class MessagesComponent implements OnInit {
   friends: friendDTO[] = [];
   messages: Message[] = [];
   currentFriendUsername: string = "";
-
+  currentUser : User;
+  
   constructor(
     private elementRef: ElementRef,
     private friendService: FriendService,
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
+    private authenticationService: AuthenticationService,
   ) {
     this.route.queryParams.subscribe(params =>{
       this.currentFriendUsername = params['username'];
     })
+
+    this.currentUser = this.authenticationService.currentUserValue;
    }
 
   
@@ -62,6 +68,15 @@ export class MessagesComponent implements OnInit {
   }
 
   openChat(username: string){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(
+      ['/messageExchange'],
+      { queryParams: { username: username} }
+    );
+  }
+
+  goToChatWithFriend(username: string){
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(

@@ -129,7 +129,7 @@
                 <tbody *ngIf="friends">
                   <tr *ngFor="let friend of friends" class="alignCenter">
                     <td class="d-flex justify-content-between">
-                        <a [routerLink]="['/messageExchange']"><span class="text-center pe-5">{{friend.username}}</span>
+                        <a (click)="goToChatWithFriend(friend.username)"><span class="text-center pe-5">{{friend.username}}</span>
                         <i class="bi bi-send-plus"></i></a>
                     </td>
                   </tr>

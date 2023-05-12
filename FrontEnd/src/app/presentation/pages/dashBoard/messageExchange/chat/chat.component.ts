@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   currentUser: User;
   users: User[] = [];
   currentFriendId: string = "";
-  currentFriendUsername: string = "";
+  currentFriendUsername: string = '';
   formMsg: FormGroup;
   messagesBetweenUsers: boolean = false;
 
@@ -39,6 +39,7 @@ export class ChatComponent implements OnInit {
       this.currentFriendUsername = params['username'];
     })
     
+    console.log(this.currentFriendUsername);
     this.formMsg = this.formBuilder.group({
       toUsername: [this.currentFriendUsername],
       text: [null]
@@ -58,9 +59,6 @@ export class ChatComponent implements OnInit {
 
   onSubmit() {
     var message = this.formMsg.value; 
-    // var sendMessageDTO = new SendMessageDTO();
-    // sendMessageDTO.text = "apfdssdfapospdf";
-    // sendMessageDTO.toUsername = "Matheus";
 
     this.messageService.SendMessage(message).subscribe(data => {
       window.location.reload();
