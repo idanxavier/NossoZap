@@ -68,12 +68,12 @@ namespace Application.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpGet("list-last-received-messages")]
-        public async Task<IActionResult> ListLastReceivedMessages()
+        [HttpGet("list-last-messages")]
+        public async Task<IActionResult> ListLastMessages()
         {
             try
             {
-                return Ok(await _messageService.ListLastReceivedMessages());
+                return Ok(await _messageService.ListLastMessages());
             }
             catch (Exception error)
             {

@@ -82,10 +82,10 @@ namespace Service.Implementation
             return messages;
         }
 
-        public async Task<List<LastReceivedMessageDTO>> ListLastReceivedMessages()
+        public async Task<List<LastReceivedMessageDTO>> ListLastMessages()
         {
             var currentUser = await _authService.GetCurrentUser();
-            var messages = await _messageRepository.ListUserReceivedMessages(currentUser.Id);
+            var messages = await _messageRepository.ListUserMessages(currentUser.Id);
             var lastMessages = new List<LastReceivedMessageDTO>();
 
             foreach(Message message in messages)
