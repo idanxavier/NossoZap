@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommentPostDTO } from "src/app/domain/models/Dtos/CommentPostDTO";
-
 import { PostDTO } from "src/app/domain/models/Dtos/PostDTO";
 import { UpdatePostDTO } from "src/app/domain/models/Dtos/UpdatePostDTO";
 import { LikeDTO } from "src/app/domain/models/LikeDTO";

@@ -17,5 +17,15 @@ namespace Infrastructure.Repositories
         {
             return await _context.Message.Where(x => (x.fromUserId == fromUserId || x.toUserId == fromUserId) && (x.fromUserId == toUserId || x.toUserId == toUserId)).OrderBy(x => x.date).ToListAsync();
         }
+
+        public async Task<List<Message>> ListUserReceivedMessages(string userId)
+        {
+            return await _context.Message.Where(x => x.toUserId == userId).ToListAsync();
+        }
+
+        public async Task<Message> GetLastMessageWithUser(string fromUserId, string toUserId)
+        {
+            return await _context.Message.Where(x => (x.fromUserId == fromUserId || x.toUserId == fromUserId) && (x.fromUserId == toUserId || x.toUserId == toUserId)).OrderBy(x => x.date).LastOrDefaultAsync();
+        }
     }
 }

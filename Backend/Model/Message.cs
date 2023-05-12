@@ -11,6 +11,8 @@ namespace Model
     {
         [Key]
         public int Id { get; set; } 
+        public string fromUsername { get; set; }
+        public string toUsername { get; set; } 
         public string fromUserId { get; set; }
         public string toUserId { get; set; }
         public string text { get; set; }

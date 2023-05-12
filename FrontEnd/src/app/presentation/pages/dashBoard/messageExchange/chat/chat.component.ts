@@ -20,7 +20,6 @@ export class ChatComponent implements OnInit {
   readMessageId: string = "";
   currentUser: User;
   users: User[] = [];
-  // messages: MessageDTO[] = [];
   currentFriendId: string = "";
   currentFriendUsername: string = "";
   formMsg: FormGroup;

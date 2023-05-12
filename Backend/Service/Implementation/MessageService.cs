@@ -2,11 +2,6 @@
 using Model;
 using Model.DTO;
 using Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implementation
 {
@@ -39,6 +34,8 @@ namespace Service.Implementation
                 fromUserId = currentUser.Id,
                 toUserId = toUser.Id,
                 text = message.text,
+                fromUsername = currentUser.UserName,
+                toUsername = toUser.UserName
         };
 
             return await _messageRepository.CreateAsync(newMessage);
@@ -84,5 +81,30 @@ namespace Service.Implementation
 
             return messages;
         }
+
+        public async Task<List<LastReceivedMessageDTO>> ListLastReceivedMessages()
+        {
+            var currentUser = await _authService.GetCurrentUser();
+            var messages = await _messageRepository.ListUserReceivedMessages(currentUser.Id);
+            var lastMessages = new List<LastReceivedMessageDTO>();
+
+            foreach(Message message in messages)
+            {
+                if (FindUsernameInLastMessages(lastMessages, message.fromUsername))
+                    continue;
+
+                var lastMessage = await _messageRepository.GetLastMessageWithUser(message.fromUserId, currentUser.Id);
+                var lastMessageDTO = new LastReceivedMessageDTO();
+                lastMessageDTO.date = lastMessage.date;
+                lastMessageDTO.username = message.fromUsername;
+                lastMessageDTO.userId = message.fromUserId;
+                lastMessageDTO.lastMessage = message.text;
+                lastMessages.Add(lastMessageDTO);
+            }
+
+            return lastMessages;
+        }
+
+        public bool FindUsernameInLastMessages(List<LastReceivedMessageDTO> messages, string username) => messages.Find(x => x.username == username) != null;
     }
 }
