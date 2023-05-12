@@ -22,5 +22,15 @@ namespace Infrastructure.Repositories
         {
             return await _context.Friend.Where(x => (x.userId.Equals(userId)) || x.friendId.Equals(userId)).ToListAsync();
         }
+
+        public async Task<List<Friend>> ListSendFriendsByUserId(string userId)
+        {
+            return await _context.Friend.Where(x => (x.userId.Equals(userId))).ToListAsync();
+        }
+
+        public async Task<List<Friend>> ListReceivedFriendsByUserId(string userId)
+        {
+            return await _context.Friend.Where(x => (x.friendId.Equals(userId))).ToListAsync();
+        }
     }
 }

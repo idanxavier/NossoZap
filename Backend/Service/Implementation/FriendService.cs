@@ -76,25 +76,30 @@ namespace Service.Implementation
         {
             User currentUser = await _authService.GetCurrentUser();
 
-            List<Friend> friends = await _friendRepository.ListFriendsByUserId(currentUser.Id);
+            List<Friend> sendFriends = await _friendRepository.ListSendFriendsByUserId(currentUser.Id);
             List<FriendDTO> friendsDTO = new List<FriendDTO>();
 
-            var dto = new FriendDTO();
-
-            foreach(Friend friend in friends)
+            foreach (var friend in sendFriends)
             {
-                if(friend.friendId == currentUser.Id)
+                var dto = new FriendDTO
                 {
-                    dto.id = friend.userId;
-                    dto.addedAt = friend.addedAt;
-                    dto.username = friend.username;
-                } else
-                {
-                    dto.id = friend.friendId;
-                    dto.addedAt = friend.addedAt;
-                    dto.username = friend.friendName;
-                }
+                    id = friend.friendId,
+                    username = friend.friendName,
+                    addedAt = friend.addedAt
+                };
+                friendsDTO.Add(dto);
+            }
 
+            List<Friend> receivedFriends = await _friendRepository.ListReceivedFriendsByUserId(currentUser.Id);
+
+            foreach (var friend in receivedFriends)
+            {
+                var dto = new FriendDTO
+                {
+                    id = friend.userId,
+                    username = friend.username,
+                    addedAt = friend.addedAt
+                };
                 friendsDTO.Add(dto);
             }
 
