@@ -23,11 +23,11 @@
       </div>
       <div class="col-10">
         <div class="row styleOfPeopleSendedMessage">
-          <div class="col-10">Matheus Cerqueira</div>
-          <div class="col-2 alignTime"><span class="timeMessage">08:52</span></div>
+          <div class="col-10">{{chat.username}}</div>
+          <div class="col-2 alignTime"><span class="timeMessage">{{chat.date}}</span></div>
         </div>
         <div class="row">
-          <span class="alignMessage">Bom dia</span>
+          <span class="alignMessage">{{chat.lastMessage}}</span>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
                 <tbody *ngIf="friends">
                   <tr *ngFor="let friend of friends" class="alignCenter">
                     <td class="d-flex justify-content-between">
-                        <a [routerLink]="['/messageExchange']"><span class="text-center pe-5">{{friend.username}}</span>
+                        <a (click)="openChat(friend.username)"><span class="text-center pe-5">{{friend.username}}</span>
                         <i class="bi bi-send-plus"></i></a>
                     </td>
                   </tr>

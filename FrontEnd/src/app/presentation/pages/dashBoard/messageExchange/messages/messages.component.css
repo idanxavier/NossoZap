@@ -75,7 +75,13 @@
     border: 1px solid #888;
     width: 35%;
 }
-  
+
+.alignCenter{
+    display: flex;
+    justify-content: center;
+}
+
+
 .title {
     text-align: center;
     font-size: 2rem;

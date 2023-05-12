@@ -1,7 +1,9 @@
-export class MessageModel {
+export class Message {
   id: number = 0;
-  texto: string = "";
-  data: string = "";
-  receiverUserId: number = 0;
-  receiverUsername: string = "";
+  fromUsername: string = "";
+  toUsername: string = "";
+  fromUserId: string = "";
+  toUserId: string = "";
+  text: string = "";
+  date: string = "";
 }

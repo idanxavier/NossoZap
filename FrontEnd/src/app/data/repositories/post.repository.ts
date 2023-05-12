@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommentPostDTO } from "src/app/domain/models/Dtos/CommentPostDTO";
-import { LikeDTO } from "src/app/domain/models/Dtos/LikeDTO";
 import { PostDTO } from "src/app/domain/models/Dtos/PostDTO";
 import { UpdatePostDTO } from "src/app/domain/models/Dtos/UpdatePostDTO";
+import { LikeDTO } from "src/app/domain/models/LikeDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -38,6 +38,10 @@ export class PostRepository {
     return this.httpClient.post(`${environment.apiUrl}` + '/Comment/create-comment', commentPost);
   }
 
+  updateComment(updateComment: UpdatePostDTO) {
+    return this.httpClient.post(`${environment.apiUrl}` + '/Post/update-comment', updateComment);
+  }
+  
   deleteComment(id:number) {
     return this.httpClient.delete(`${environment.apiUrl}` + '/Comment/remove-comment?commentId=' + id );
   }

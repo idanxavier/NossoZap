@@ -1,7 +1,7 @@
 export class CommentPostDTO {
     postId: number = 0;
     message: string = "";
-
+   
     constructor(
         postId: number,
         message: string,

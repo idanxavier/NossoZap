@@ -5,7 +5,7 @@ import { Post } from '../models/postModel';
 import { PostDTO } from '../models/Dtos/PostDTO';
 import { UpdatePostDTO } from '../models/Dtos/UpdatePostDTO';
 import { CommentPostDTO } from '../models/Dtos/CommentPostDTO';
-import { LikeDTO } from '../models/Dtos/LikeDTO';
+import { LikeDTO } from '../models/LikeDTO';
 
 @Injectable({
   providedIn: 'root'

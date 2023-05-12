@@ -55,7 +55,8 @@
     margin-top: 10px;
     align-self: flex-start;
     flex-direction: column;
-    background-color: #defece;
+    background-color: #e5ddd5;
+
     text-align: start;
 }
 
@@ -64,7 +65,7 @@
     margin-top: 10px;
     align-self: flex-end;
     flex-direction: column;
-    background-color: #e5ddd5;
+    background-color: #defece;
     text-align: end;
   }
 

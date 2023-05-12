@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PostDTO } from 'src/app/domain/models/Dtos/PostDTO';
 import { DatePipe } from '@angular/common';
 import { UpdatePostDTO } from 'src/app/domain/models/Dtos/UpdatePostDTO';
-import { LikeDTO } from 'src/app/domain/models/Dtos/LikeDTO';
+import { LikeDTO } from 'src/app/domain/models/LikeDTO';
 import { LikeModel } from 'src/app/domain/models/likeModel';
 import { CommentPostDTO } from 'src/app/domain/models/Dtos/CommentPostDTO';
 
