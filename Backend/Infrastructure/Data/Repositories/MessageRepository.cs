@@ -20,12 +20,12 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Message>> ListUserMessages(string userId)
         {
-            return await _context.Message.Where(x => x.toUserId == userId || x.fromUsername == userId).ToListAsync();
+            return await _context.Message.Where(x => x.toUserId == userId || x.fromUserId == userId).ToListAsync();
         }
 
         public async Task<Message> GetLastMessageWithUser(string fromUserId, string toUserId)
         {
-            return await _context.Message.Where(x => (x.fromUserId == fromUserId && x.toUserId == toUserId) || (x.fromUserId == toUserId && x.toUserId == fromUserId)).OrderBy(x => x.date).LastOrDefaultAsync();
+            return await _context.Message.Where(x => (x.fromUserId == fromUserId || x.toUserId == fromUserId) && (x.fromUserId == toUserId || x.toUserId == toUserId)).OrderBy(x => x.date).LastOrDefaultAsync();
         }
     }
 }

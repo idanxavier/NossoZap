@@ -87,24 +87,38 @@ namespace Service.Implementation
             var currentUser = await _authService.GetCurrentUser();
             var messages = await _messageRepository.ListUserMessages(currentUser.Id);
             var lastMessages = new List<LastReceivedMessageDTO>();
-
+            var alreadyLast = new List<string>();
+            
             foreach(Message message in messages)
             {
-                if (FindUsernameInLastMessages(lastMessages, message.fromUsername))
-                    continue;
+                if(message.fromUserId == currentUser.Id)
+                {
+                    if (FindUserIdInLastMessages(alreadyLast, message.toUserId))
+                        continue;
+                    alreadyLast.Add(message.toUserId);
+                } else
+                {
+                    if (FindUserIdInLastMessages(alreadyLast, message.fromUserId))
+                        continue;
+                    alreadyLast.Add(message.fromUserId);
+                }
+            }
 
-                var lastMessage = await _messageRepository.GetLastMessageWithUser(message.fromUserId, currentUser.Id);
+            foreach(string userId in alreadyLast)
+            {
+                var lastMessage = await _messageRepository.GetLastMessageWithUser(userId, currentUser.Id);
                 var lastMessageDTO = new LastReceivedMessageDTO();
+
+                lastMessageDTO.lastMessage = lastMessage.text;
                 lastMessageDTO.date = lastMessage.date;
-                lastMessageDTO.username = message.fromUsername;
-                lastMessageDTO.userId = message.fromUserId;
-                lastMessageDTO.lastMessage = message.text;
+                lastMessageDTO.username = lastMessage.fromUserId == currentUser.Id ? lastMessage.toUsername : lastMessage.fromUsername;
+                lastMessageDTO.userId = lastMessage.fromUserId == currentUser.Id ? lastMessage.toUserId : lastMessage.fromUserId;
                 lastMessages.Add(lastMessageDTO);
             }
 
             return lastMessages;
         }
 
-        public bool FindUsernameInLastMessages(List<LastReceivedMessageDTO> messages, string username) => messages.Find(x => x.username == username) != null;
+        public bool FindUserIdInLastMessages(List<string> messages, string userId) => messages.Find(x => x.Equals(userId)) != null;
     }
 }
